@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\NikiStandartChess\NikiStandartChess.csproj" />
+    <ProjectReference Include="..\NikiChessGames\NikiChessGames.csproj" />
   </ItemGroup>
 
   <ItemGroup>

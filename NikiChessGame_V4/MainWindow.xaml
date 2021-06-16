@@ -298,7 +298,8 @@
                 </Grid.RowDefinitions>
 
                 <!-- x0 -->
-                <StackPanel Grid.Column="0" Grid.Row="8">
+                <StackPanel Grid.Column="0" Grid.Row="9" Background="LightGray"/>
+                <StackPanel Grid.Column="0" Grid.Row="8" Background="LightGray">
                     <TextBlock x:Name="x0y8"
                                Text="1"
                                FontSize="50"
@@ -306,7 +307,7 @@
                                VerticalAlignment="Center"
                                HorizontalAlignment="Left" Margin="15,-13,0,0"/>
                 </StackPanel>
-                <StackPanel Grid.Column="0" Grid.Row="7">
+                <StackPanel Grid.Column="0" Grid.Row="7" Background="LightGray">
                     <TextBlock x:Name="x0y7"
                                Text="2"
                                FontSize="50"
@@ -314,7 +315,7 @@
                                VerticalAlignment="Center"
                                HorizontalAlignment="Left" Margin="15,-13,0,0"/>
                 </StackPanel>
-                <StackPanel Grid.Column="0" Grid.Row="6">
+                <StackPanel Grid.Column="0" Grid.Row="6" Background="LightGray">
                     <TextBlock x:Name="x0y6"
                                Text="3"
                                FontSize="50"
@@ -322,7 +323,7 @@
                                VerticalAlignment="Center"
                                HorizontalAlignment="Left" Margin="15,-13,0,0"/>
                 </StackPanel>
-                <StackPanel Grid.Column="0" Grid.Row="5">
+                <StackPanel Grid.Column="0" Grid.Row="5" Background="LightGray">
                     <TextBlock x:Name="x0y5"
                                Text="4"
                                FontSize="50"
@@ -330,7 +331,7 @@
                                VerticalAlignment="Center"
                                HorizontalAlignment="Left" Margin="15,-13,0,0"/>
                 </StackPanel>
-                <StackPanel Grid.Column="0" Grid.Row="4">
+                <StackPanel Grid.Column="0" Grid.Row="4" Background="LightGray">
                     <TextBlock x:Name="x0y4"
                                Text="5"
                                FontSize="50"
@@ -338,7 +339,7 @@
                                VerticalAlignment="Center"
                                HorizontalAlignment="Left" Margin="15,-13,0,0"/>
                 </StackPanel>
-                <StackPanel Grid.Column="0" Grid.Row="3">
+                <StackPanel Grid.Column="0" Grid.Row="3" Background="LightGray">
                     <TextBlock x:Name="x0y3"
                                Text="6"
                                FontSize="50"
@@ -346,7 +347,7 @@
                                VerticalAlignment="Center"
                                HorizontalAlignment="Left" Margin="15,-13,0,0"/>
                 </StackPanel>
-                <StackPanel Grid.Column="0" Grid.Row="2">
+                <StackPanel Grid.Column="0" Grid.Row="2" Background="LightGray">
                     <TextBlock x:Name="x0y2"
                                Text="7"
                                FontSize="50"
@@ -354,7 +355,7 @@
                                VerticalAlignment="Center"
                                HorizontalAlignment="Left" Margin="15,-13,0,0"/>
                 </StackPanel>
-                <StackPanel Grid.Column="0" Grid.Row="1">
+                <StackPanel Grid.Column="0" Grid.Row="1" Background="LightGray">
                     <TextBlock x:Name="x0y1"
                                Text="8"
                                FontSize="50"
@@ -362,9 +363,11 @@
                                VerticalAlignment="Center"
                                HorizontalAlignment="Left" Margin="15,-13,0,0"/>
                 </StackPanel>
-                
-                <!-- x1 -->                
-                <StackPanel Grid.Column="1" Grid.Row="9">
+                <StackPanel Grid.Column="0" Grid.Row="0" Background="LightGray"/>
+
+
+                <!-- x1 -->
+                <StackPanel Grid.Column="1" Grid.Row="9" Background="LightGray">
                     <TextBlock x:Name="a"
                                Text="a"
                                FontSize="50"
@@ -420,17 +423,9 @@
                     Background="#E8EBEF" Click="x1y1_Click">
                     <Image x:Name="Ix1y1" Source="{x:Null}" AllowDrop="True"/>
                 </Button>
-                <StackPanel Grid.Column="1" Grid.Row="0">
-                    <TextBlock x:Name="a1"
-                               Text="a"
-                               FontSize="50"
-                               TextAlignment="Center"
-                               VerticalAlignment="Center"
-                               HorizontalAlignment="Left" Margin="15,-13,0,0"/>
-                </StackPanel>
 
                 <!-- x2 -->
-                <StackPanel Grid.Column="2" Grid.Row="9">
+                <StackPanel Grid.Column="2" Grid.Row="9" Background="LightGray">
                     <TextBlock x:Name="b"
                                Text="b"
                                FontSize="50"
@@ -486,17 +481,9 @@
                     Background="#7d8796" Click="x2y1_Click">
                     <Image x:Name="Ix2y1" Source="{x:Null}" AllowDrop="True"/>
                 </Button>
-                <StackPanel Grid.Column="2" Grid.Row="0">
-                    <TextBlock x:Name="b1"
-                               Text="b"
-                               FontSize="50"
-                               TextAlignment="Center"
-                               VerticalAlignment="Center"
-                               HorizontalAlignment="Left" Margin="15,-13,0,0"/>
-                </StackPanel>
 
                 <!-- x3 -->
-                <StackPanel Grid.Column="3" Grid.Row="9">
+                <StackPanel Grid.Column="3" Grid.Row="9" Background="LightGray">
                     <TextBlock x:Name="c"
                                Text="c"
                                FontSize="50"
@@ -552,17 +539,9 @@
                     Background="#E8EBEF" Click="x3y1_Click">
                     <Image x:Name="Ix3y1" Source="{x:Null}" AllowDrop="True"/>
                 </Button>
-                <StackPanel Grid.Column="3" Grid.Row="0">
-                    <TextBlock x:Name="c1"
-                               Text="c"
-                               FontSize="50"
-                               TextAlignment="Center"
-                               VerticalAlignment="Center"
-                               HorizontalAlignment="Left" Margin="15,-13,0,0"/>
-                </StackPanel>
 
                 <!-- x4 -->
-                <StackPanel Grid.Column="4" Grid.Row="9">
+                <StackPanel Grid.Column="4" Grid.Row="9" Background="LightGray">
                     <TextBlock x:Name="d"
                                Text="d"
                                FontSize="50"
@@ -618,17 +597,9 @@
                     Background="#7d8796" Click="x4y1_Click">
                     <Image x:Name="Ix4y1" Source="{x:Null}" AllowDrop="True"/>
                 </Button>
-                <StackPanel Grid.Column="4" Grid.Row="0">
-                    <TextBlock x:Name="d1"
-                               Text="d"
-                               FontSize="50"
-                               TextAlignment="Center"
-                               VerticalAlignment="Center"
-                               HorizontalAlignment="Left" Margin="15,-13,0,0"/>
-                </StackPanel>
 
                 <!-- x5 -->
-                <StackPanel Grid.Column="5" Grid.Row="9">
+                <StackPanel Grid.Column="5" Grid.Row="9" Background="LightGray">
                     <TextBlock x:Name="e"
                                Text="e"
                                FontSize="50"
@@ -684,17 +655,9 @@
                     Background="#E8EBEF" Click="x5y1_Click">
                     <Image x:Name="Ix5y1" Source="{x:Null}" AllowDrop="True"/>
                 </Button>
-                <StackPanel Grid.Column="5" Grid.Row="0">
-                    <TextBlock x:Name="e1"
-                               Text="e"
-                               FontSize="50"
-                               TextAlignment="Center"
-                               VerticalAlignment="Center"
-                               HorizontalAlignment="Left" Margin="15,-13,0,0"/>
-                </StackPanel>
 
                 <!-- x6 -->
-                <StackPanel Grid.Column="6" Grid.Row="9">
+                <StackPanel Grid.Column="6" Grid.Row="9" Background="LightGray">
                     <TextBlock x:Name="f"
                                Text="f"
                                FontSize="50"
@@ -750,17 +713,9 @@
                     Background="#7d8796" Click="x6y1_Click">
                     <Image x:Name="Ix6y1" Source="{x:Null}" AllowDrop="True"/>
                 </Button>
-                <StackPanel Grid.Column="6" Grid.Row="0">
-                    <TextBlock x:Name="f1"
-                               Text="f"
-                               FontSize="50"
-                               TextAlignment="Center"
-                               VerticalAlignment="Center"
-                               HorizontalAlignment="Left" Margin="15,-13,0,0"/>
-                </StackPanel>
 
                 <!-- x7 -->
-                <StackPanel Grid.Column="7" Grid.Row="9">
+                <StackPanel Grid.Column="7" Grid.Row="9" Background="LightGray">
                     <TextBlock x:Name="g"
                                Text="g"
                                FontSize="50"
@@ -816,17 +771,9 @@
                     Background="#E8EBEF" Click="x7y1_Click">
                     <Image x:Name="Ix7y1" Source="{x:Null}" AllowDrop="True"/>
                 </Button>
-                <StackPanel Grid.Column="7" Grid.Row="0">
-                    <TextBlock x:Name="g1"
-                               Text="g"
-                               FontSize="50"
-                               TextAlignment="Center"
-                               VerticalAlignment="Center"
-                               HorizontalAlignment="Left" Margin="15,-22,0,0"/>
-                </StackPanel>
 
                 <!-- x8 -->
-                <StackPanel Grid.Column="8" Grid.Row="9">
+                <StackPanel Grid.Column="8" Grid.Row="9" Background="LightGray">
                     <TextBlock x:Name="h"
                                Text="h"
                                FontSize="50"
@@ -882,95 +829,47 @@
                     Background="#7d8796" Click="x8y1_Click">
                     <Image x:Name="Ix8y1" Source="{x:Null}" AllowDrop="True"/>
                 </Button>
-                <StackPanel Grid.Column="8" Grid.Row="0">
-                    <TextBlock x:Name="h1"
-                               Text="h"
-                               FontSize="50"
-                               TextAlignment="Center"
-                               VerticalAlignment="Center"
-                               HorizontalAlignment="Left" Margin="15,-13,0,0"/>
-                </StackPanel>
 
                 <!-- x9 -->
-                <StackPanel Grid.Column="9" Grid.Row="8">
-                    <TextBlock x:Name="x9y8"
-                               Text="1"
-                               FontSize="50"
-                               TextAlignment="Center"
-                               VerticalAlignment="Center"
-                               HorizontalAlignment="Left" Margin="15,-13,0,0"/>
-                </StackPanel>
-                <StackPanel Grid.Column="9" Grid.Row="7">
-                    <TextBlock x:Name="x9y7"
-                               Text="2"
-                               FontSize="50"
-                               TextAlignment="Center"
-                               VerticalAlignment="Center"
-                               HorizontalAlignment="Left" Margin="15,-13,0,0"/>
-                </StackPanel>
-                <StackPanel Grid.Column="9" Grid.Row="6">
-                    <TextBlock x:Name="x9y6"
-                               Text="3"
-                               FontSize="50"
-                               TextAlignment="Center"
-                               VerticalAlignment="Center"
-                               HorizontalAlignment="Left" Margin="15,-13,0,0"/>
-                </StackPanel>
-                <StackPanel Grid.Column="9" Grid.Row="5">
-                    <TextBlock x:Name="x9y5"
-                               Text="4"
-                               FontSize="50"
-                               TextAlignment="Center"
-                               VerticalAlignment="Center"
-                               HorizontalAlignment="Left" Margin="15,-13,0,0"/>
-                </StackPanel>
-                <StackPanel Grid.Column="9" Grid.Row="4">
-                    <TextBlock x:Name="x9y4"
-                               Text="5"
-                               FontSize="50"
-                               TextAlignment="Center"
-                               VerticalAlignment="Center"
-                               HorizontalAlignment="Left" Margin="15,-13,0,0"/>
-                </StackPanel>
-                <StackPanel Grid.Column="9" Grid.Row="3">
-                    <TextBlock x:Name="x9y3"
-                               Text="6"
-                               FontSize="50"
-                               TextAlignment="Center"
-                               VerticalAlignment="Center"
-                               HorizontalAlignment="Left" Margin="15,-13,0,0"/>
-                </StackPanel>
-                <StackPanel Grid.Column="9" Grid.Row="2">
-                    <TextBlock x:Name="x9y2"
-                               Text="7"
-                               FontSize="50"
-                               TextAlignment="Center"
-                               VerticalAlignment="Center"
-                               HorizontalAlignment="Left" Margin="15,-13,0,0"/>
-                </StackPanel>
-                <StackPanel Grid.Column="9" Grid.Row="1">
-                    <TextBlock x:Name="x9y1"
-                               Text="8"
-                               FontSize="50"
-                               TextAlignment="Center"
-                               VerticalAlignment="Center"
-                               HorizontalAlignment="Left" Margin="15,-13,0,0"/>
-                </StackPanel>
+                <StackPanel Grid.Column="9" Grid.Row="0" Background="LightGray"/>
+                <StackPanel Grid.Column="9" Grid.Row="1" Background="LightGray"/>
+                <StackPanel Grid.Column="9" Grid.Row="2" Background="LightGray"/>
+                <StackPanel Grid.Column="9" Grid.Row="3" Background="LightGray"/>
+                <StackPanel Grid.Column="9" Grid.Row="4" Background="LightGray"/>
+                <StackPanel Grid.Column="9" Grid.Row="5" Background="LightGray"/>
+                <StackPanel Grid.Column="9" Grid.Row="6" Background="LightGray"/>
+                <StackPanel Grid.Column="9" Grid.Row="7" Background="LightGray"/>
+                <StackPanel Grid.Column="9" Grid.Row="8" Background="LightGray"/>
+                <StackPanel Grid.Column="9" Grid.Row="9" Background="LightGray"/>
+
+                <!-- Y0 -->
+                <StackPanel Grid.Column="8" Grid.Row="0" Background="LightGray"/>
+                <StackPanel Grid.Column="7" Grid.Row="0" Background="LightGray"/>
+                <StackPanel Grid.Column="6" Grid.Row="0" Background="LightGray"/>
+                <StackPanel Grid.Column="5" Grid.Row="0" Background="LightGray"/>
+                <StackPanel Grid.Column="4" Grid.Row="0" Background="LightGray"/>
+                <StackPanel Grid.Column="3" Grid.Row="0" Background="LightGray"/>
+                <StackPanel Grid.Column="2" Grid.Row="0" Background="LightGray"/>
+                <StackPanel Grid.Column="1" Grid.Row="0" Background="LightGray"/>
 
             </Grid>
 
-            <StackPanel VerticalAlignment="Top" Grid.Row="1" Grid.Column="1" Margin="0,10,700,0">
-                <Border Width="130" Height="45" Background="#fcab00" CornerRadius="20">
-                    <TextBlock x:Name="Player2"
-                               Text="Player 2"
-                               FontSize="22"
+            <!-- Start -->
+            <StackPanel VerticalAlignment="Top" Grid.Row="1" Grid.Column="1" Margin="700,10,0,0">
+                <Button Click="start_Click" Width="140" Height="60"  Background="#202020">
+                    <Border Width="130" Height="45" Background="#fcab00" CornerRadius="20">
+                        <TextBlock x:Name="Player10"
+                               Text="Start"
+                               FontSize="40"
                                TextAlignment="Center"
                                VerticalAlignment="Center"
-                               HorizontalAlignment="Left" Margin="27,0,0,0"/>
-                </Border>
+                               HorizontalAlignment="Left" Margin="25,0,0,0"/>
+                    </Border>
+                </Button>
             </StackPanel>
 
-            <StackPanel VerticalAlignment="Bottom" Grid.Row="1" Grid.Column="1" Margin="0,0,700,10">
+            <!-- Player 1 -->
+            <StackPanel VerticalAlignment="Bottom" Margin="0,0,700,10">
                 <Border Width="130" Height="45" Background="#fcab00" CornerRadius="20">
                     <TextBlock x:Name="Player1"
                                Text="Player 1"
@@ -981,6 +880,31 @@
                 </Border>
             </StackPanel>
 
+            <!-- Select the game -->
+            <TextBlock x:Name="Player11" Margin="0,15,700,0" Background="#fcab00"
+                       Width="135" Height="28"        
+                       Text="Select The Game"
+                               FontSize="18"
+                               TextAlignment="Center"
+                               VerticalAlignment="Top"
+                               HorizontalAlignment="Center"/>
+
+            <ComboBox x:Name="StartTheGame" Width="135" Height="25"
+                      VerticalAlignment="Top" Margin="0,44,700,0">
+                <ComboBoxItem>
+                    1st game
+                </ComboBoxItem>
+                <ComboBoxItem>
+                    2nd game
+                </ComboBoxItem>
+                <ComboBoxItem>
+                    3rd game
+                </ComboBoxItem>
+                <ComboBoxItem>
+                    4th game
+                </ComboBoxItem>
+            </ComboBox>
+            
         </Grid>
     </Grid>
 </Window>

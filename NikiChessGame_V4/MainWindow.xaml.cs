@@ -1,5 +1,6 @@
-﻿using NikiStandartChess;
-using NikiStandartChess.Figures;
+﻿using NikiChessGames;
+//using NikiStandartChess;
+//using NikiStandartChess.Figures;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,12 +9,13 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Drawing;
+//using System.Drawing;
 
 
 namespace NikiChessGame_V4
@@ -23,940 +25,182 @@ namespace NikiChessGame_V4
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        GameManager gameManager = new GameManager();
+
         public static int clickX = 0;
         public static int clickY = 0;
 
         public static Image[] ChessImages = new Image[65];
-        public static string[] ImageName = new string[65];
+        //public static string[] ImageName = new string[12];
+
+
+        public KeyValuePair<Tuple<string, string>, string>[] ImageName = new KeyValuePair<Tuple<string, string>, string>[12];
+
+
 
         public MainWindow()
         {
             InitializeComponent();
-            StartTheSelectedGame();
-        }
-        public void StartTheSelectedGame()
-        {
-            //Chess Images
-            {
-                //for (int i = 1; i < 9; i++)
-                //{
-                //    ImageName[i] = "WPawn.png";
-                //}
-
-                //ImageName[9] = "WRook.png";
-                //ImageName[10] = "WRook.png";
-                //ImageName[11] = "WKnight.png";
-                //ImageName[12] = "WKnight.png";
-                //ImageName[13] = "WBishop.png";
-                //ImageName[14] = "WBishop.png";
-                //ImageName[15] = "WQueen.png";//done
-                //ImageName[16] = "WKing.png";//done
-
-
-                //for (int i = 17; i < 25; i++)
-                //{
-                //    ImageName[i] = "BPawn.png";
-                //}
-
-                //ImageName[25] = "BRook.png";
-                //ImageName[26] = "BRook.png";
-                //ImageName[27] = "BKnight.png";
-                //ImageName[28] = "BKnight.png";
-                //ImageName[29] = "BBishop.png";
-                //ImageName[30] = "BBishop.png";
-                //ImageName[31] = "BQueen.png";//done
-                //ImageName[32] = "BKing.png";//done
-
-                ChessImages[1] = Ix1y1;
-                ChessImages[2] = Ix1y2;
-                ChessImages[3] = Ix1y3;
-                ChessImages[4] = Ix1y4;
-                ChessImages[5] = Ix1y5;
-                ChessImages[6] = Ix1y6;
-                ChessImages[7] = Ix1y7;
-                ChessImages[8] = Ix1y8;
-
-                ChessImages[9] = Ix2y1;
-                ChessImages[10] = Ix2y2;
-                ChessImages[11] = Ix2y3;
-                ChessImages[12] = Ix2y4;
-                ChessImages[13] = Ix2y5;
-                ChessImages[14] = Ix2y6;
-                ChessImages[15] = Ix2y7;
-                ChessImages[16] = Ix2y8;
-
-                ChessImages[17] = Ix3y1;
-                ChessImages[18] = Ix3y2;
-                ChessImages[19] = Ix3y3;
-                ChessImages[20] = Ix3y4;
-                ChessImages[21] = Ix3y5;
-                ChessImages[22] = Ix3y6;
-                ChessImages[23] = Ix3y7;
-                ChessImages[24] = Ix3y8;
-
-                ChessImages[25] = Ix4y1;
-                ChessImages[26] = Ix4y2;
-                ChessImages[27] = Ix4y3;
-                ChessImages[28] = Ix4y4;
-                ChessImages[29] = Ix4y5;
-                ChessImages[30] = Ix4y6;
-                ChessImages[31] = Ix4y7;
-                ChessImages[32] = Ix4y8;
-
-                ChessImages[33] = Ix5y1;
-                ChessImages[34] = Ix5y2;
-                ChessImages[35] = Ix5y3;
-                ChessImages[36] = Ix5y4;
-                ChessImages[37] = Ix5y5;
-                ChessImages[38] = Ix5y6;
-                ChessImages[39] = Ix5y7;
-                ChessImages[40] = Ix5y8;
-
-                ChessImages[41] = Ix6y1;
-                ChessImages[42] = Ix6y2;
-                ChessImages[43] = Ix6y3;
-                ChessImages[44] = Ix6y4;
-                ChessImages[45] = Ix6y5;
-                ChessImages[46] = Ix6y6;
-                ChessImages[47] = Ix6y7;
-                ChessImages[48] = Ix6y8;
-
-                ChessImages[49] = Ix7y1;
-                ChessImages[50] = Ix7y2;
-                ChessImages[51] = Ix7y3;
-                ChessImages[52] = Ix7y4;
-                ChessImages[53] = Ix7y5;
-                ChessImages[54] = Ix7y6;
-                ChessImages[55] = Ix7y7;
-                ChessImages[56] = Ix7y8;
-
-                ChessImages[57] = Ix8y1;
-                ChessImages[58] = Ix8y2;
-                ChessImages[59] = Ix8y3;
-                ChessImages[60] = Ix8y4;
-                ChessImages[61] = Ix8y5;
-                ChessImages[62] = Ix8y6;
-                ChessImages[63] = Ix8y7;
-                ChessImages[64] = Ix8y8;
-
-                //StartGame();
-            }
-
-            //previous version of the game // Main window
-            #region previous version
-
-            List<NikiStandartChess.Figures.Figure> figures = new List<NikiStandartChess.Figures.Figure>();
-
-            List<KeyValuePair<FigureType, Type>> figur1 = new List<KeyValuePair<FigureType, Type>>()
-            {
-                    new KeyValuePair<FigureType, Type>(FigureType.Black,typeof(King)),
-                    new KeyValuePair<FigureType, Type>(FigureType.White,typeof(King)),
-                    new KeyValuePair<FigureType, Type>(FigureType.White,typeof(Queen)),
-                    new KeyValuePair<FigureType, Type>(FigureType.White,typeof(Rook)),
-                    new KeyValuePair<FigureType, Type>(FigureType.White,typeof(Rook))
-            };
-
-            //ay sa eka voncvor te taza sarqac@
-            //foreach (var item in figur1)
-            //{
-            //    CreateFigure(item.Value, item.Key);
-            //}
-
-            foreach (var item in figur1)
-            {
-                figures.Add(CreateFigure(item.Value, item.Key));
-            }
-            Board board1 = new Board();
-            board1.board = new string[9, 9];
-            //ConsoleKeyInfo input;
-            DrawBoard(board1, figures);
-            DrawingWPF(figures);
-            #endregion
         }
 
-        public void DrawingWPF(List<NikiStandartChess.Figures.Figure> figures)
+        private void start_Click(object sender, RoutedEventArgs e)
         {
-            foreach (var _figure in figures)
-            {
-                int chessImageNumber = 8 * _figure.xPos - (8 - _figure.yPos);
-                Game.SetImage(ChessImages[chessImageNumber], _figure);
-            }
+            StartChessGame();
         }
 
-        public void StartInitialGame(Board board1, List<NikiStandartChess.Figures.Figure> figures)
+        public void SetImageCoordinates()
         {
-            do
-            {
-                //ResetColor();komenteci
+            ChessImages[1] = Ix1y1;
+            ChessImages[2] = Ix1y2;
+            ChessImages[3] = Ix1y3;
+            ChessImages[4] = Ix1y4;
+            ChessImages[5] = Ix1y5;
+            ChessImages[6] = Ix1y6;
+            ChessImages[7] = Ix1y7;
+            ChessImages[8] = Ix1y8;
 
-                //ay sa taza sarqacna
-                //BlackKingPosition(board1, figur1);// Sa el pti inikati unecvi
-                //WhiteKingPosition(board1, figur1);//sa pti mtcvi algoritmi mej
-                //WhiteQueenPosition(board1, figur1);//sa pti mtcvi algoritmi mej
-                //LeftRookPosition(board1, figur1);//sa pti mtcvi algoritmi mej
-                //RightRookPosition(board1, figur1);//sa pti mtcvi algoritmi mej
+            ChessImages[9] = Ix2y1;
+            ChessImages[10] = Ix2y2;
+            ChessImages[11] = Ix2y3;
+            ChessImages[12] = Ix2y4;
+            ChessImages[13] = Ix2y5;
+            ChessImages[14] = Ix2y6;
+            ChessImages[15] = Ix2y7;
+            ChessImages[16] = Ix2y8;
 
-                BlackKingPosition(board1, figures);// Sa el pti inikati unecvi
-                WhiteKingPosition(board1, figures);//sa pti mtcvi algoritmi mej
-                WhiteQueenPosition(board1, figures);//sa pti mtcvi algoritmi mej
-                LeftRookPosition(board1, figures);//sa pti mtcvi algoritmi mej
-                RightRookPosition(board1, figures);//sa pti mtcvi algoritmi mej
+            ChessImages[17] = Ix3y1;
+            ChessImages[18] = Ix3y2;
+            ChessImages[19] = Ix3y3;
+            ChessImages[20] = Ix3y4;
+            ChessImages[21] = Ix3y5;
+            ChessImages[22] = Ix3y6;
+            ChessImages[23] = Ix3y7;
+            ChessImages[24] = Ix3y8;
 
-                //Clear(); komenteci
+            ChessImages[25] = Ix4y1;
+            ChessImages[26] = Ix4y2;
+            ChessImages[27] = Ix4y3;
+            ChessImages[28] = Ix4y4;
+            ChessImages[29] = Ix4y5;
+            ChessImages[30] = Ix4y6;
+            ChessImages[31] = Ix4y7;
+            ChessImages[32] = Ix4y8;
 
-                //ForegroundColor = ConsoleColor.Red;
-                DrawBoard(board1, figures);
+            ChessImages[33] = Ix5y1;
+            ChessImages[34] = Ix5y2;
+            ChessImages[35] = Ix5y3;
+            ChessImages[36] = Ix5y4;
+            ChessImages[37] = Ix5y5;
+            ChessImages[38] = Ix5y6;
+            ChessImages[39] = Ix5y7;
+            ChessImages[40] = Ix5y8;
 
-                //WriteLine();komenteci
+            ChessImages[41] = Ix6y1;
+            ChessImages[42] = Ix6y2;
+            ChessImages[43] = Ix6y3;
+            ChessImages[44] = Ix6y4;
+            ChessImages[45] = Ix6y5;
+            ChessImages[46] = Ix6y6;
+            ChessImages[47] = Ix6y7;
+            ChessImages[48] = Ix6y8;
 
-                //ResetColor();komenteci
+            ChessImages[49] = Ix7y1;
+            ChessImages[50] = Ix7y2;
+            ChessImages[51] = Ix7y3;
+            ChessImages[52] = Ix7y4;
+            ChessImages[53] = Ix7y5;
+            ChessImages[54] = Ix7y6;
+            ChessImages[55] = Ix7y7;
+            ChessImages[56] = Ix7y8;
 
-                //WriteLine("\nPlease press escape to out or else to continue\n"); komenteci
-
-                //input = ReadKey(); komenteci
-
-                //WriteLine(); komenteci
-            } while (true); /*input.Key != ConsoleKey.Escape*/ //komenteci);
+            ChessImages[57] = Ix8y1;
+            ChessImages[58] = Ix8y2;
+            ChessImages[59] = Ix8y3;
+            ChessImages[60] = Ix8y4;
+            ChessImages[61] = Ix8y5;
+            ChessImages[62] = Ix8y6;
+            ChessImages[63] = Ix8y7;
+            ChessImages[64] = Ix8y8;
         }
-        //1st region I think
-        #region previouse game 1st section
-        //Supporting methods(number 1) standart for any chess game
-        public static (int, int) CheckingBlackKingInputs(List<NikiStandartChess.Figures.Figure> figures, int previousBlackKingX, int previousPosY)//CheckingInputs
+
+        public void SetFigureImages()
         {
-            try
+            ImageName[0] = new KeyValuePair<Tuple<string, string>, string> (new Tuple<string,string>("Black", "K"), "BKing.png");
+            ImageName[1] = new KeyValuePair<Tuple<string, string>, string> (new Tuple<string,string>("Black", "Q"), "BQueen.png");
+            ImageName[2] = new KeyValuePair<Tuple<string, string>, string> (new Tuple<string,string>("Black", "B"), "BBishop.png");
+            ImageName[3] = new KeyValuePair<Tuple<string, string>, string> (new Tuple<string,string>("Black", "R"), "BRook.png");
+            ImageName[4] = new KeyValuePair<Tuple<string, string>, string> (new Tuple<string,string>("Black", "Kn"), "BKnighte.png");
+            ImageName[5] = new KeyValuePair<Tuple<string, string>, string> (new Tuple<string,string>("Black", "P"), "BPawn.png");
+            ImageName[6] = new KeyValuePair<Tuple<string, string>, string> (new Tuple<string,string>("White", "K"), "WKing.png");
+            ImageName[7] = new KeyValuePair<Tuple<string, string>, string> (new Tuple<string,string>("White", "Q"), "WQueen.png");
+            ImageName[8] = new KeyValuePair<Tuple<string, string>, string> (new Tuple<string,string>("White", "B"), "WBishop.png");
+            ImageName[9] = new KeyValuePair<Tuple<string, string>, string> (new Tuple<string,string>("White", "R"), "WRook.png");
+            ImageName[10] = new KeyValuePair<Tuple<string, string>, string> (new Tuple<string,string>("White", "Kn"), "WKnighte.png");
+            ImageName[11] = new KeyValuePair<Tuple<string, string>, string> (new Tuple<string,string>("White", "P"), "WPawn.png");
+        }
+
+        public void StartChessGame()
+        {
+            SetImageCoordinates();
+            SetFigureImages();
+            //if (StartTheGame.Text == "1st game")
+            gameManager.DrawGame(StartTheGame.Text);
+            DrawingWPF();
+        }
+
+
+
+
+        public void DrawingWPF()
+        {
+            List<Tuple<System.Drawing.Point, string, string>> figurePoints;
+            figurePoints = gameManager.FigurePositions();
+            foreach (var pos in figurePoints)
             {
-                int blackKingPositionX = figures[0].xPos;
-                int blackKingPositionY = figures[0].yPos;
+                //int chessImageNumber = 8 * _figure.xPos - (8 - _figure.yPos);
+                // Game.SetImage(ChessImages[chessImageNumber], _figure);
 
-                //int whiteQueenPositionX = figures[2].xPos;
-                //int whiteQueenPositionY = figures[2].yPos;
+                int chessImageNumber = 8 * pos.Item1.X - (8 - pos.Item1.Y);
 
-                //int leftRookPositionX = figures[3].xPos;
-                //int leftRookPositionY = figures[3].yPos;
-
-                //int rightRookPositionX = figures[4].xPos;
-                //int rightRookPositionY = figures[4].yPos;
-
-                //int[] numbersArray = new int[3];
-                //KeyValuePair<int, Figure>[] numbersAndFigures = new KeyValuePair<int, Figure>[3];
-                //numbersAndFigures[0] = new KeyValuePair<int, Figure>(Math.Abs(previousBlackKingX - whiteQueenPositionX), figures[2]);
-                //numbersAndFigures[1] = new KeyValuePair<int, Figure>(Math.Abs(previousBlackKingX - leftRookPositionX), figures[3]);
-                //numbersAndFigures[2] = new KeyValuePair<int, Figure>(Math.Abs(previousBlackKingX - rightRookPositionX), figures[4]);
-                //numbersAndFigures[0] = new KeyValuePair<int, Figure>(whiteQueenPositionX, figures[2]);
-                //numbersAndFigures[1] = new KeyValuePair<int, Figure>(leftRookPositionX, figures[3]);
-                //numbersAndFigures[2] = new KeyValuePair<int, Figure>(rightRookPositionX, figures[4]);
-                //numbersAndFigures[0] = new KeyValuePair<int, Figure>(figures[2].xPos, figures[2]);
-                //numbersAndFigures[1] = new KeyValuePair<int, Figure>(figures[3].xPos, figures[3]);
-                //numbersAndFigures[2] = new KeyValuePair<int, Figure>(figures[4].xPos, figures[4]);
-                //for (int i = 0; i < numbersAndFigures.Length; i++)
-                //{
-                //    numbersArray[i] = numbersAndFigures[i].Key;
-                //}
-                //Array.Sort(numbersArray);
-                //int minNumber = numbersArray[0];
-                int leftTempX = 0;//leftTempX
-                int rightTempX = 0;//rightTempX
-                int leftPosX = 1;
-                int rightPosX = 8;
-
-                for (int i = 0; i < 3; i++)
+                foreach (var image in ImageName)
                 {
-                    if (figures[i + 2].xPos < figures[0].xPos)
+                    if(image.Key.Item1==pos.Item2&& image.Key.Item2== pos.Item3)
                     {
-                        leftTempX = figures[2].xPos;
-                        if (leftPosX < leftTempX)
-                        {
-                            leftPosX = leftTempX;
-                        }
-                    }
-                    else if (figures[i + 2].xPos > figures[0].xPos)
-                    {
-                        rightTempX = figures[i + 2].xPos;
-                        if (rightPosX < rightTempX)
-                        {
-                            rightPosX = rightTempX;
-                        }
-                    }
+                        SetImage(ChessImages[chessImageNumber], image.Value);
+                    }                    
                 }
-
-                //for (int i = 0; i < numbersAndFigures.Length; i++)
-                //{
-                //    if(numbersAndFigures[i].Value.xPos< blackKingPositionX)
-                //    {
-                //        leftTempX = numbersAndFigures[i].Key;
-                //        if (leftPosX < leftTempX)
-                //        {
-                //            leftPosX = leftTempX;
-                //        }                        
-                //    }
-                //    else if(numbersAndFigures[i].Value.xPos > blackKingPositionX)
-                //    {
-                //        rightTempX = numbersAndFigures[i].Key;
-                //        if (rightPosX < rightTempX)
-                //        {
-                //            rightPosX = rightTempX;
-                //        }                       
-                //    }
-                //}
-                //foreach (var item in numbersAndFigures)
-                //{
-                //    if (item.Key == minNumber)
-                //    {
-                //        if(item.Value.xPos< blackKingPositionX)
-                //        {
-                //            leftPosX = item.Value.xPos;
-                //        }
-                //        else
-                //        {
-                //            rightPosX = item.Value.xPos;
-                //        }                                              
-                //    }
-                //}
-
-                if (blackKingPositionX < leftPosX || blackKingPositionX > rightPosX)
-                {
-                    //WriteLine("Wrong character"); komenteci
-
-                    //blackKingX = 9;
-
-                    //WriteLine("Please firstly enter right charackters from a to h"); komenteci
-                }
-                else if (blackKingPositionY < 1 || blackKingPositionY > 8)
-                {
-                    //WriteLine("Wrong number"); komenteci
-
-                    //blackKingX = 9;
-
-                    //WriteLine("Please enter right numbers from 1 to 8"); komenteci
-                }
-                return (blackKingPositionX, blackKingPositionY);
             }
-            catch (ArgumentOutOfRangeException)
-            {
-                //WriteLine("Wrong length"); komenteci
+        }        
 
-                //WriteLine("Please enter onle one letter and number"); komenteci
-                return (9, 0);
-            }
+        public static void SetImage(Image img, string figureImageName)
+        {
+            //img.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal, (System.Threading.ThreadStart)delegate ()
+            // {
+            //     if (type < 1) img.Visibility = Visibility.Hidden;
+            /* else*/
+            img.Source = new BitmapImage(new Uri("\\Images\\" + figureImageName, UriKind.Relative));
+            //});
         }
 
-        public static (int, int) CheckingInputs(string coordinates, List<NikiStandartChess.Figures.Figure> figures)
-        {
-            try
-            {
-                var z = TakingOutCoordinates(coordinates);
-                int y = z.Item1;
-                int x = z.Item2;
-                if (coordinates.Length != 2)
-                {
-                    //WriteLine("Wrong length");komenteci
-                    y = 9;
-                    //WriteLine("Please enter onle one letter and number");komenteci
-                }
-                else if (y < 1 || y > 8)
-                {
-                    //WriteLine("Wrong character");komenteci
-                    y = 9;
-                    //WriteLine("Please firstly enter right charackters from a to h");komenteci
-                }
-                else if (x < 1 || x > 8)
-                {
-                    //WriteLine("Wrong number");komenteci
-                    y = 9;
-                    //WriteLine("Please enter right numbers from 1 to 8");komenteci
-                }
-                return (y, x);
-            }
-            catch (ArgumentOutOfRangeException)
-            {
-                //WriteLine("Wrong length");komenteci
-                //WriteLine("Please enter onle one letter and number");komenteci
-                return (9, 0);
-            }
-        }//ok
-
-        public static bool CheckingKingSteps(NikiStandartChess.Figures.Figure figure, int PreviosPosX, int PreviosPosY)
-        {
-            int y = figure.yPos;
-            int x = figure.xPos;
-            if ((x - PreviosPosX == 1 || x - PreviosPosX == -1 || x - PreviosPosX == 0)
-                && (y - PreviosPosY == 1 || y - PreviosPosY == -1 || y - PreviosPosY == 0)
-                && ((x - PreviosPosX != 0 || y - PreviosPosY != 0)))
-            {
-                return false;
-            }
-            return true;
-        }//ok
-
-        public static bool CheckingQueenSteps(NikiStandartChess.Figures.Figure figure, int PreviosPosX, int PreviosPosY)
-        {
-            int nextPosY = figure.yPos;
-            int nextPosX = figure.xPos;
-            int tempX = PreviosPosX;
-            int tempY = PreviosPosY;
-            if (Math.Abs(PreviosPosX - nextPosX) == Math.Abs(PreviosPosY - nextPosY)
-                || nextPosY - PreviosPosY == 0 || nextPosX - PreviosPosX == 0)
-            {
-                return false;
-            }
-            return true;
-        }//ok
-
-        public static bool CheckingRookSteps(NikiStandartChess.Figures.Figure figure, int PreviosPosX, int PreviosPosY)//ok
-        {
-            int nextPosY = figure.yPos;
-            int nextPosX = figure.xPos;
-            int tempX = PreviosPosX;
-            int tempY = PreviosPosY;
-            if (nextPosY - PreviosPosY == 0 || nextPosX - PreviosPosX == 0)
-            {
-                return false;
-            }
-            return true;
-        }
-
-        public static bool CheckingForOtherFigures(Board board, NikiStandartChess.Figures.Figure figure, int PreviosPosX, int PreviosPosY)
-        {
-            int nextPosY = figure.yPos;
-            int nextPosX = figure.xPos;
-            //int x = PreviosPosX;
-            //int y = PreviosPosY;
-            int tempX = PreviosPosX;
-            int tempY = PreviosPosY;
-            do
-            {
-                if (nextPosX > PreviosPosX)
-                {
-                    int i = PreviosPosX + 1;
-                    //x = i;
-                    PreviosPosX = i;
-                }
-                else if (nextPosX < PreviosPosX)
-                {
-                    int i = PreviosPosX - 1;
-                    //x = i;
-                    PreviosPosX = i;
-                }
-                if (nextPosY > PreviosPosY)
-                {
-                    int i = PreviosPosY + 1;
-                    //y = i;
-                    PreviosPosY = i;
-                }
-                else if (nextPosY < PreviosPosY)
-                {
-                    int i = PreviosPosY - 1;
-                    //y = i;
-                    PreviosPosY = i;
-                }
-                //WriteLine(board.board[y, x] + "A");
-                if (board.board[PreviosPosY, PreviosPosX] != "  " || (nextPosY == tempY && nextPosX == tempX))
-                {
-                    return true;
-                }
-            } while (nextPosX != PreviosPosX || nextPosY != PreviosPosY);
-            return false;
-        }//ok
-
-        public static (int, int) TakingOutCoordinates(string coordinates)
-        {
-            if (coordinates.Length == 2)
-            {
-                char letter = coordinates[0];
-                int y = 0;
-                switch (letter)
-                {
-                    case 'a':
-                        y = 1;
-                        break;
-                    case 'b':
-                        y = 2;
-                        break;
-                    case 'c':
-                        y = 3;
-                        break;
-                    case 'd':
-                        y = 4;
-                        break;
-                    case 'e':
-                        y = 5;
-                        break;
-                    case 'f':
-                        y = 6;
-                        break;
-                    case 'g':
-                        y = 7;
-                        break;
-                    case 'h':
-                        y = 8;
-                        break;
-                }
-                char number = coordinates[1];
-                int x = 0;
-                switch (number)
-                {
-                    case '1':
-                        x = 1;
-                        break;
-                    case '2':
-                        x = 2;
-                        break;
-                    case '3':
-                        x = 3;
-                        break;
-                    case '4':
-                        x = 4;
-                        break;
-                    case '5':
-                        x = 5;
-                        break;
-                    case '6':
-                        x = 6;
-                        break;
-                    case '7':
-                        x = 7;
-                        break;
-                    case '8':
-                        x = 8;
-                        break;
-                }
-                return (x, y);
-            }
-            else
-            {
-                throw new ArgumentOutOfRangeException("Wrong length");
-            }
-        }
-
-        public static bool CheckingForOtherFigures(Board board, NikiStandartChess.Figures.Figure figure)
-        {
-            int j = figure.xPos;
-            int i = figure.yPos;
-            try
-            {
-                if (board.board[i, j] != figure.name && board.board[i, j] != default(string))
-                {
-                    return true;
-                }
-            }
-            catch (Exception)
-            {
-                return true;
-            }
-            return false;
-        }
-        #endregion
-
-        //2nd part of the previouse game
-        #region 2nd part of the previouse game
-        //specially this game(2)
-
-        public static void BlackKingPosition(Board board, List<NikiStandartChess.Figures.Figure> figures)
-        {
-            bool check = false;
-            string moveKing = "K";//ay ste prosto mi ban greci
-            int previousPosX = figures[0].xPos;
-            int previousPosY = figures[0].yPos;
-            board.board[previousPosY, previousPosX] = "  ";
-            bool checkingCorrectness = false;
-            do
-            {
-                check = false;
-                checkingCorrectness = false;
-                //ResetColor();komenteci
-                //WriteLine("\nPlease enter the cell coordinates, where the black King will move");komenteci
-                //moveKing = ReadLine().ToLower();komenteci sranov er input stanum
-                var z = CheckingInputs(moveKing, figures);
-                figures[0].xPos = z.Item2;
-                figures[0].yPos = z.Item1;
-                if (checkingCorrectness != CheckingKingSteps(figures[0], previousPosX, previousPosY))
-                {
-                    checkingCorrectness = true;
-                    //WriteLine("The King can make only one step to right-left or top-bottom");komenteci
-                    //WriteLine("Please enter valid coordinates");komenteci
-                }
-                if (check != CheckingForOtherFigures(board, figures[0]))
-                {
-                    check = true;
-                    //WriteLine("Please enter valid coordinates");komenteci
-                }
-                if (figures[0].xPos < 0 || checkingCorrectness == false || check == false)//ay ste ay es paymanic heto stugum enq 
-                {
-                    CheckingBlackKingInputs(figures, previousPosX, previousPosY);
-                }
-
-
-            } while (figures[0].xPos < 0 || checkingCorrectness || check);
-            //ForegroundColor = ConsoleColor.Black;
-            board.board[figures[0].yPos, figures[0].xPos] = "B" + figures[0].Name();
-        }
-
-        public static void WhiteKingPosition(Board board, List<NikiStandartChess.Figures.Figure> figures)
-        {
-            bool check = false;
-            string moveKing = "K";//mi ankap ban greci
-            int previousPosX = figures[1].xPos;
-            int previousPosY = figures[1].yPos;
-            board.board[previousPosY, previousPosX] = "  ";
-            bool checkingCorrectness = false;
-            do
-            {
-                check = false;
-                checkingCorrectness = false;
-                //ResetColor();komenteci
-                //WriteLine("\nPlease enter the cell coordinates, where the white King will move");komenteci
-                //moveKing = ReadLine().ToLower();komenteci
-                var z = CheckingInputs(moveKing, figures);
-                figures[1].xPos = z.Item2;
-                figures[1].yPos = z.Item1;
-                if (checkingCorrectness != CheckingKingSteps(figures[1], previousPosX, previousPosY))
-                {
-                    checkingCorrectness = true;
-                    //WriteLine("The King can make only one step to right-left or top-bottom");komenteci
-                    //WriteLine("Please enter valid coordinates");komenteci
-                }
-                if (check != CheckingForOtherFigures(board, figures[1]))
-                {
-                    check = true;
-                    //WriteLine("Please enter valid coordinates");komenteci
-                }
-            } while (figures[1].xPos < 0 || checkingCorrectness || check);
-            //ForegroundColor = ConsoleColor.Red;
-            board.board[figures[1].yPos, figures[1].xPos] = "W" + figures[1].Name();
-        }
-
-        public static void WhiteQueenPosition(Board board, List<NikiStandartChess.Figures.Figure> figures)
-        {
-            bool check = false;
-            string moveKing = "K";
-            int previousPosX = figures[2].xPos;
-            int previousPosY = figures[2].yPos;
-            int tempX = previousPosX;
-            int tempY = previousPosY;
-            board.board[previousPosY, previousPosX] = "  ";
-            bool checkingCorrectness = false;
-            do
-            {
-                previousPosX = tempX;
-                previousPosY = tempY;
-                check = false;
-                checkingCorrectness = false;
-                //ResetColor();
-                //WriteLine("\nPlease enter the cell coordinates, where the white Queen will move");
-                //moveKing = ReadLine().ToLower();
-                var z = CheckingInputs(moveKing, figures);
-                figures[2].xPos = z.Item2;
-                figures[2].yPos = z.Item1;
-                if (checkingCorrectness != CheckingForOtherFigures(board, figures[2], previousPosX, previousPosY))
-                {
-                    checkingCorrectness = true;
-                    //WriteLine("The Queen can not jump through other figures or stay in the same position");
-                    //WriteLine("Please enter valid coordinates");
-                }
-                if (check != CheckingQueenSteps(figures[2], previousPosX, previousPosY))
-                {
-                    check = true;
-                    //WriteLine("Please enter valid coordinates");
-                }
-            } while (figures[2].xPos < 0 || checkingCorrectness || check);
-            board.board[figures[2].yPos, figures[2].xPos] = "W" + figures[2].Name();
-        }
-
-        public static void LeftRookPosition(Board board, List<NikiStandartChess.Figures.Figure> figures)
-        {
-            bool check = false;
-            string moveKing = "K";
-            int previousPosX = figures[3].xPos;
-            int previousPosY = figures[3].yPos;
-            board.board[previousPosY, previousPosX] = "  ";
-            bool checkingCorrectness = false;
-            do
-            {
-                check = false;
-                checkingCorrectness = false;
-                //ResetColor();
-                //WriteLine("\nPlease enter the cell coordinates, where the Left Rook will move");
-                //moveKing = ReadLine().ToLower();
-                var z = CheckingInputs(moveKing, figures);
-                figures[3].xPos = z.Item2;
-                figures[3].yPos = z.Item1;
-                if (checkingCorrectness != CheckingRookSteps(figures[3], previousPosX, previousPosY))
-                {
-                    checkingCorrectness = true;
-                    //WriteLine("The Rook can make steps only to right-left or top-bottom");
-                    //WriteLine("Please enter valid coordinates");
-                }
-                if (check != CheckingForOtherFigures(board, figures[3], previousPosX, previousPosY))
-                {
-                    check = true;
-                    //WriteLine("Please enter valid coordinates");
-                }
-            } while (figures[3].xPos < 0 || checkingCorrectness || check);
-            board.board[figures[3].yPos, figures[3].xPos] = "L" + figures[3].Name();
-        }
-
-        public static void RightRookPosition(Board board, List<NikiStandartChess.Figures.Figure> figures)
-        {
-            bool check = false;
-            string moveKing = "K";
-            int previousPosX = figures[4].xPos;
-            int previousPosY = figures[4].yPos;
-            board.board[previousPosY, previousPosX] = "  ";
-            bool checkingCorrectness = false;
-            do
-            {
-                check = false;
-                checkingCorrectness = false;
-                //ResetColor();
-                //WriteLine("\nPlease enter the cell coordinates, where the Right Rook will move");
-                //moveKing = ReadLine().ToLower();
-                var z = CheckingInputs(moveKing, figures);
-                figures[4].xPos = z.Item2;
-                figures[4].yPos = z.Item1;
-                if (checkingCorrectness != CheckingRookSteps(figures[4], previousPosX, previousPosY))
-                {
-                    checkingCorrectness = true;
-                    //WriteLine("The Rook can make steps only to right-left or top-bottom");
-                    //WriteLine("Please enter valid coordinates");
-                }
-                if (check != CheckingForOtherFigures(board, figures[4], previousPosX, previousPosY))
-                {
-                    check = true;
-                    //WriteLine("Please enter valid coordinates");
-                }
-            } while (figures[4].xPos < 0 || checkingCorrectness || check);
-            board.board[figures[4].yPos, figures[4].xPos] = "R" + figures[4].Name();
-        }
-        #endregion
-
-        //3rd part of the previouse game
-        #region 3rd part
-        //drawing front(3)
-        public static int count = 0;
-
-        public static void FigureInitialPositions(Board _board, List<NikiStandartChess.Figures.Figure> figures)
-        {
-            int _i = _board.i;
-            int _j = _board.j;
-            foreach (var _figure in figures)
-            {
-                if (_i == 1 && _j == 4 && _figure is King && _figure.figureType == FigureType.Black)
-                {
-                    //ForegroundColor = ConsoleColor.Black;
-                    _board.board[_i, _j] = "B" + _figure.Name();//Black King
-                    _figure.xPos = _j;
-                    _figure.yPos = _i;
-                    //int chessImageNumber = 8 * _j - (8 - _i);
-                    //Game.SetImage(ChessImages[chessImageNumber], _figure);
-
-                    /*
-                     ChessImages[1] = Ix1y1;
-                ChessImages[2] = Ix1y2;
-                ChessImages[3] = Ix1y3;
-                ChessImages[4] = Ix1y4;
-                ChessImages[5] = Ix1y5;
-                ChessImages[6] = Ix1y6;
-                ChessImages[7] = Ix1y7;
-                ChessImages[8] = Ix1y8;
-
-                ChessImages[9] = Ix2y1;
-                ChessImages[10] = Ix2y2;
-                ChessImages[11] = Ix2y3;
-                ChessImages[12] = Ix2y4;
-                ChessImages[13] = Ix2y5;
-                ChessImages[14] = Ix2y6;
-                ChessImages[15] = Ix2y7;
-                ChessImages[16] = Ix2y8;
-                    */
-                    break;
-                }
-                else if (_i == 8 && _j == 1 && _figure is Rook && _figure.figureType == FigureType.White && _figure.figureNumber == FigureNumber.Right)
-                {
-                    // ForegroundColor = ConsoleColor.Red;
-                    _board.board[_i, _j] = "R" + _figure.Name();// Right Rook
-                    _figure.xPos = _j;
-                    _figure.yPos = _i;
-                    //int chessImageNumber = 8 * _j - (8 - _i);
-                    //Game.SetImage(ChessImages[chessImageNumber], _figure);
-                    break;
-                }
-                else if (_i == 8 && _j == 3 && _figure is Queen && _figure.figureType == FigureType.White)
-                {
-                    //ForegroundColor = ConsoleColor.Red;
-                    _board.board[_i, _j] = "W" + _figure.Name(); //White Queen
-                    _figure.xPos = _j;
-                    _figure.yPos = _i;
-                    //int chessImageNumber = 8 * _j - (8 - _i);
-                    //Game.SetImage(ChessImages[chessImageNumber], _figure);
-                    break;
-                }
-                else if (_i == 8 && _j == 4 && _figure is King && _figure.figureType == FigureType.White)
-                {
-                    //ForegroundColor = ConsoleColor.Red;
-                    _board.board[_i, _j] = "W" + _figure.Name(); // White King
-                    _figure.xPos = _j;
-                    _figure.yPos = _i;
-                    //int chessImageNumber = 8 * _j - (8 - _i);
-                    //Game.SetImage(ChessImages[chessImageNumber], _figure);
-                    break;
-                }
-                else if (_i == 8 && _j == 8 && _figure is Rook && _figure.figureType == FigureType.White && _figure.figureNumber == FigureNumber.Left)
-                {
-                    //ForegroundColor = ConsoleColor.Red;
-                    _board.board[_i, _j] = "L" + _figure.Name(); // Left Rook
-                    _figure.xPos = _j;
-                    _figure.yPos = _i;
-                    //int chessImageNumber = 8 * _j - (8 - _i);
-                    //Game.SetImage(ChessImages[chessImageNumber], _figure);
-                    break;
-                }
-                else
-                {
-                    _board.board[_i, _j] = string.Empty;
-                }
-            }
-        }
-
-        public static void FigurePositions(Board _board, List<NikiStandartChess.Figures.Figure> figures)
-        {
-            int _i = _board.i;
-            int _j = _board.j;
-            if (count < 64)
-            {
-                FigureInitialPositions(_board, figures);
-                count++;
-            }
-            //if (_i == figures[0].yPos && _j == figures[0].xPos && count > 63)
-            //{
-            //    //ForegroundColor = ConsoleColor.Black;
-            //    //_board.board[_i, _j] = "B" + figures[0].Name();//Black King
-            //    //figures[0].xPos = _j;
-            //    //figures[0].yPos = _i;
-            //}
-            //else if (_i == figures[1].yPos && _j == figures[1].xPos && count > 63)
-            //{
-            //    //ForegroundColor = ConsoleColor.Red;
-            //    //_board.board[_i, _j] = "W" + figures[1].Name();//White King
-            //    //figures[1].xPos = _j;
-            //    //figures[1].yPos = _i;
-            //}
-            //else if (_i == figures[2].yPos && _j == figures[2].xPos && count > 63)
-            //{
-            //    ForegroundColor = ConsoleColor.Red;
-            //    //_board.board[_i, _j] = "W" + figures[2].Name();//White Queen
-            //    //figures[2].xPos = _j;
-            //    //figures[2].yPos = _i;
-            //}
-            //else if (_i == figures[3].yPos && _j == figures[3].xPos && count > 63)
-            //{
-            //    ForegroundColor = ConsoleColor.Red;
-            //    //_board.board[_i, _j] = "L" + figures[3].Name();//Left Rook
-            //    //figures[3].xPos = _j;
-            //    //figures[3].yPos = _i;
-            //}
-            //else if (_i == figures[4].yPos && _j == figures[4].xPos && count > 63)
-            //{
-            //    ForegroundColor = ConsoleColor.Red;
-            //    //_board.board[_i, _j] = "R" + figures[4].Name();//Right Rook
-            //    //figures[4].xPos = _j;
-            //    //figures[4].yPos = _i;
-            //}
-        }
-
-        public static void InitializeBoard(Board _board, List<NikiStandartChess.Figures.Figure> figures, ConsoleColor color1, ConsoleColor color2)
-        {
-            int _i = _board.i;
-            int _j = _board.j;
-            //char letter = 'A';
-            //char initialLetter = ' ';
-            //string letter1;
-            //if (_i == 0)
-            //{
-            //    initialLetter = (char)(letter + _j - 1);
-            //}
-            //letter1 = " " + initialLetter;
-            if (_j % 2 == 0 && _i != 0 && _j > 0)
-            {
-                //BackgroundColor = color1;
-                FigurePositions(_board, figures);
-                //Write(_board.board[_i, _j]);
-            }
-            else if (_i != 0 && _j % 2 != 0 && _j > 0)
-            {
-                //BackgroundColor = color2;
-                FigurePositions(_board, figures);
-                // Write(_board.board[_i, _j]);
-            }
-            //else if (_i == 0 && _j != 0)
-            //{
-            //    //ForegroundColor = ConsoleColor.Green;
-            //    _board.board[_i, _j] = letter1;
-            //    //Write(_board.board[_i, _j]);
-            //   // ForegroundColor = ConsoleColor.Red;
-            //}
-            //else if (_j == 0 && _i == 0)
-            //{
-            //   // Write("  ");
-            //}
-            //else if (_j == 0 && _i != 0)
-            //{
-            //    //ResetColor();
-            //    //ForegroundColor = ConsoleColor.Green;
-            //    _board.board[_i, _j] = " " + _i.ToString();
-            //    //Write(_board.board[_i, _j]);
-            //    //ForegroundColor = ConsoleColor.Red;
-            //}
-        }
-
-        public static void DrawBoard(Board _board, List<NikiStandartChess.Figures.Figure> figures)
-        {
-            for (int i = 1; i < 9; i++)
-            {
-                //if (i % 2 == 0)
-                //{
-                for (int j = 1; j < 9; j++)
-                {
-                    _board.i = i;
-                    _board.j = j;
-                    FigurePositions(_board, figures);
-                    //InitializeBoard(_board, figures, ConsoleColor.White, ConsoleColor.Gray);
-                }
-                //}
-                //else
-                //{
-                //    for (int j = 0; j < 9; j++)
-                //    {
-                //        _board.i = i;
-                //        _board.j = j;
-                //        InitializeBoard(_board, figures, ConsoleColor.Gray, ConsoleColor.White);
-                //    }
-                //}
-                //WriteLine();
-            }
-        }
-
-        public static NikiStandartChess.Figures.Figure CreateFigure(Type type, FigureType figureType)
-        {
-            NikiStandartChess.Figures.Figure figure = (NikiStandartChess.Figures.Figure)Activator.CreateInstance(type, figureType);
-            return figure;
-        }
-
-        #endregion
 
 
 
-        public static void StartGame()
-        {
-            int x, y;
 
-            x = 1;
-            y = 2;
 
-            int type = Game.Peace.White.Pawn[0];
 
-            Game.Base.ID[Game.GetBaseID(x, y)] = type;
-            Game.SetImage(MainWindow.ChessImages[Game.GetBaseID(x, y)], type);
-        }
+        //public static void StartGame()
+        //{
+        //    int x, y;
+
+        //    x = 1;
+        //    y = 2;
+
+        //    int type = Game.Peace.White.Pawn[0];
+
+        //    Game.Base.ID[Game.GetBaseID(x, y)] = type;
+        //    Game.SetImage(MainWindow.ChessImages[Game.GetBaseID(x, y)], type);
+        //}
 
         #region Click on Chess Button
         private void x1y1_Click(object sender, RoutedEventArgs e)
@@ -1401,7 +645,27 @@ namespace NikiChessGame_V4
         private void W15_Click(object sender, RoutedEventArgs e)
         {
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         #endregion
+
+
     }
     public class Game
     {
@@ -1556,41 +820,41 @@ namespace NikiChessGame_V4
             return "";
         }
 
-        public static bool SetBase(int px, int py, int x, int y, List<NikiStandartChess.Figures.Figure> figures)
-        {
-            int type = GetType(px, py);
-            int nType = GetType(x, y);
-            if (nType > 0)
-            {
+        //public static bool SetBase(int px, int py, int x, int y, List<NikiStandartChess.Figures.Figure> figures)
+        //{
+        //    int type = GetType(px, py);
+        //    int nType = GetType(x, y);
+        //    if (nType > 0)
+        //    {
 
-            }
+        //    }
 
-            Base.ID[GetBaseID(x, y)] = type;
-            SetImage(MainWindow.ChessImages[GetBaseID(x, y)], type);
-            SetImage(MainWindow.ChessImages[GetBaseID(px, py)], 0);
-            //DrawingWPF()
-            return true;
-        }
+        //    Base.ID[GetBaseID(x, y)] = type;
+        //    SetImage(MainWindow.ChessImages[GetBaseID(x, y)], type);
+        //    SetImage(MainWindow.ChessImages[GetBaseID(px, py)], 0);
+        //    //DrawingWPF()
+        //    return true;
+        //}
 
-        public static void SetImage(Image img, int type)
-        {
-            //img.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal, (System.Threading.ThreadStart)delegate ()
-            // {
-            //     if (type < 1) img.Visibility = Visibility.Hidden;
-            /* else*/
-            img.Source = new BitmapImage(new Uri("\\Images\\" + MainWindow.ImageName[type], UriKind.Relative));
-            //});
-        }
+        //public static void SetImage(Image img, int type)
+        //{
+        //    //img.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal, (System.Threading.ThreadStart)delegate ()
+        //    // {
+        //    //     if (type < 1) img.Visibility = Visibility.Hidden;
+        //    /* else*/
+        //    img.Source = new BitmapImage(new Uri("\\Images\\" + MainWindow.ImageName[type], UriKind.Relative));
+        //    //});
+        //}
 
-        public static void SetImage(Image img, NikiStandartChess.Figures.Figure figure)
-        {
-            //img.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal, (System.Threading.ThreadStart)delegate ()
-            // {
-            //     if (type < 1) img.Visibility = Visibility.Hidden;
-            /* else*/
-            img.Source = new BitmapImage(new Uri("\\Images\\" + figure.imageName, UriKind.Relative));
-            //});
-        }
+        //public static void SetImage(Image img, NikiStandartChess.Figures.Figure figure)
+        //{
+        //    //img.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal, (System.Threading.ThreadStart)delegate ()
+        //    // {
+        //    //     if (type < 1) img.Visibility = Visibility.Hidden;
+        //    /* else*/
+        //    img.Source = new BitmapImage(new Uri("\\Images\\" + figure.imageName, UriKind.Relative));
+        //    //});
+        //}
 
         public static int GetModel(int x, int y)
         {
@@ -1625,8 +889,8 @@ namespace NikiChessGame_V4
                 {
                     //if (IsMoveable(PClickX, PClickY, MainWindow.clickX, MainWindow.clickY))
                     //{
-                        //SetBase(PClickX, PClickY, MainWindow.clickX, MainWindow.clickY,figures);
-                        clickable = false;
+                    //SetBase(PClickX, PClickY, MainWindow.clickX, MainWindow.clickY,figures);
+                    clickable = false;
                     //}
                 }
                 else

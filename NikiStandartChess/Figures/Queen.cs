@@ -13,19 +13,11 @@ namespace NikiStandartChess.Figures
 
         public Queen(FigureType _figureType, int _xPos, int _yPos) : base(_figureType, _xPos, _yPos)
         {
-            name = "Q";
-            if (_figureType.Equals(FigureType.White))
-                imageName = "WQueen.png";
-            else
-                imageName = "BQueen.png";
+            name = "Q";           
         }
         public Queen(FigureType _figureType) : base(_figureType)
         {
-            name = "Q";
-            if (_figureType.Equals(FigureType.White))
-                imageName = "WQueen.png";
-            else
-                imageName = "BQueen.png";
+            name = "Q";            
         }
         public Queen()
         {
