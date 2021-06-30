@@ -25,19 +25,12 @@ namespace NikiChessGame_V4
     /// </summary>
     public partial class MainWindow : Window
     {
-
         GameManager gameManager = new GameManager();
+        //GameManager gameManager = new GameManager();
 
-        public static int clickX = 0;
-        public static int clickY = 0;
+        public static bool gameStartCount = true;
 
         public static Image[] ChessImages = new Image[65];
-        //public static string[] ImageName = new string[12];
-
-
-        public KeyValuePair<Tuple<string, string>, string>[] ImageName = new KeyValuePair<Tuple<string, string>, string>[12];
-
-
 
         public MainWindow()
         {
@@ -46,7 +39,12 @@ namespace NikiChessGame_V4
 
         private void start_Click(object sender, RoutedEventArgs e)
         {
-            StartChessGame();
+            if (gameStartCount)
+            {
+                SetImageCoordinates();
+                StartChessGame(StartTheGame, ChessImages);
+                gameStartCount = false;
+            }
         }
 
         public void SetImageCoordinates()
@@ -124,404 +122,545 @@ namespace NikiChessGame_V4
             ChessImages[64] = Ix8y8;
         }
 
-        public void SetFigureImages()
-        {
-            ImageName[0] = new KeyValuePair<Tuple<string, string>, string> (new Tuple<string,string>("Black", "K"), "BKing.png");
-            ImageName[1] = new KeyValuePair<Tuple<string, string>, string> (new Tuple<string,string>("Black", "Q"), "BQueen.png");
-            ImageName[2] = new KeyValuePair<Tuple<string, string>, string> (new Tuple<string,string>("Black", "B"), "BBishop.png");
-            ImageName[3] = new KeyValuePair<Tuple<string, string>, string> (new Tuple<string,string>("Black", "R"), "BRook.png");
-            ImageName[4] = new KeyValuePair<Tuple<string, string>, string> (new Tuple<string,string>("Black", "Kn"), "BKnighte.png");
-            ImageName[5] = new KeyValuePair<Tuple<string, string>, string> (new Tuple<string,string>("Black", "P"), "BPawn.png");
-            ImageName[6] = new KeyValuePair<Tuple<string, string>, string> (new Tuple<string,string>("White", "K"), "WKing.png");
-            ImageName[7] = new KeyValuePair<Tuple<string, string>, string> (new Tuple<string,string>("White", "Q"), "WQueen.png");
-            ImageName[8] = new KeyValuePair<Tuple<string, string>, string> (new Tuple<string,string>("White", "B"), "WBishop.png");
-            ImageName[9] = new KeyValuePair<Tuple<string, string>, string> (new Tuple<string,string>("White", "R"), "WRook.png");
-            ImageName[10] = new KeyValuePair<Tuple<string, string>, string> (new Tuple<string,string>("White", "Kn"), "WKnighte.png");
-            ImageName[11] = new KeyValuePair<Tuple<string, string>, string> (new Tuple<string,string>("White", "P"), "WPawn.png");
-        }
-
-        public void StartChessGame()
-        {
-            SetImageCoordinates();
-            SetFigureImages();
-            //if (StartTheGame.Text == "1st game")
-            gameManager.DrawGame(StartTheGame.Text);
-            DrawingWPF();
-        }
-
-
-
-
-        public void DrawingWPF()
-        {
-            List<Tuple<System.Drawing.Point, string, string>> figurePoints;
-            figurePoints = gameManager.FigurePositions();
-            foreach (var pos in figurePoints)
-            {
-                //int chessImageNumber = 8 * _figure.xPos - (8 - _figure.yPos);
-                // Game.SetImage(ChessImages[chessImageNumber], _figure);
-
-                int chessImageNumber = 8 * pos.Item1.X - (8 - pos.Item1.Y);
-
-                foreach (var image in ImageName)
-                {
-                    if(image.Key.Item1==pos.Item2&& image.Key.Item2== pos.Item3)
-                    {
-                        SetImage(ChessImages[chessImageNumber], image.Value);
-                    }                    
-                }
-            }
-        }        
-
-        public static void SetImage(Image img, string figureImageName)
-        {
-            //img.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal, (System.Threading.ThreadStart)delegate ()
-            // {
-            //     if (type < 1) img.Visibility = Visibility.Hidden;
-            /* else*/
-            img.Source = new BitmapImage(new Uri("\\Images\\" + figureImageName, UriKind.Relative));
-            //});
-        }
-
-
-
-
-
-
-
-        //public static void StartGame()
-        //{
-        //    int x, y;
-
-        //    x = 1;
-        //    y = 2;
-
-        //    int type = Game.Peace.White.Pawn[0];
-
-        //    Game.Base.ID[Game.GetBaseID(x, y)] = type;
-        //    Game.SetImage(MainWindow.ChessImages[Game.GetBaseID(x, y)], type);
-        //}
-
         #region Click on Chess Button
+
+        /*
         private void x1y1_Click(object sender, RoutedEventArgs e)
         {
-            Game.SelectBase(1, 1);
+            SelectBase(1, 1);
+            int number = GameCount();
+            if (number < 1)
+                DrawingWPF(ChessImages);
         }
 
         private void x1y2_Click(object sender, RoutedEventArgs e)
         {
-            Game.SelectBase(1, 2);
+            SelectBase(1, 2);
+            int number = GameCount();
+            if (number < 1)
+                DrawingWPF(ChessImages);
         }
 
         private void x1y3_Click(object sender, RoutedEventArgs e)
         {
-            Game.SelectBase(1, 3);
+            SelectBase(1, 3);
+            int number = GameCount();
+            if (number < 1)
+                DrawingWPF(ChessImages);
         }
 
         private void x1y4_Click(object sender, RoutedEventArgs e)
         {
-            Game.SelectBase(1, 4);
+            SelectBase(1, 4);
+            int number = GameCount();
+            if (number < 1)
+                DrawingWPF(ChessImages);
         }
 
         private void x1y5_Click(object sender, RoutedEventArgs e)
         {
-            Game.SelectBase(1, 5);
+            SelectBase(1, 5);
+            int number = GameCount();
+            if (number < 1)
+                DrawingWPF(ChessImages);
         }
 
         private void x1y6_Click(object sender, RoutedEventArgs e)
         {
-            Game.SelectBase(1, 6);
+            SelectBase(1, 6);
+            int number = GameCount();
+            if (number < 1)
+                DrawingWPF(ChessImages);
         }
 
         private void x1y7_Click(object sender, RoutedEventArgs e)
         {
-            Game.SelectBase(1, 7);
+            SelectBase(1, 7);
+            int number = GameCount();
+            if (number < 1)
+                DrawingWPF(ChessImages);
         }
 
         private void x1y8_Click(object sender, RoutedEventArgs e)
         {
-            Game.SelectBase(1, 8);
+            SelectBase(1, 8);
+            int number = GameCount();
+            if (number < 1)
+                DrawingWPF(ChessImages);
         }
 
         private void x2y1_Click(object sender, RoutedEventArgs e)
         {
-            Game.SelectBase(2, 1);
+            SelectBase(2, 1);
+            int number = GameCount();
+            if (number < 1)
+                DrawingWPF(ChessImages);
         }
 
         private void x2y2_Click(object sender, RoutedEventArgs e)
         {
-            Game.SelectBase(2, 2);
+            SelectBase(2, 2);
+            int number = GameCount();
+            if (number < 1)
+                DrawingWPF(ChessImages);
         }
 
         private void x2y3_Click(object sender, RoutedEventArgs e)
         {
-            Game.SelectBase(2, 3);
+            SelectBase(2, 3);
+            int number = GameCount();
+            if (number < 1)
+                DrawingWPF(ChessImages);
         }
 
         private void x2y4_Click(object sender, RoutedEventArgs e)
         {
-            Game.SelectBase(2, 4);
+            SelectBase(2, 4);
+            int number = GameCount();
+            if (number < 1)
+                DrawingWPF(ChessImages);
         }
 
         private void x2y5_Click(object sender, RoutedEventArgs e)
         {
-            Game.SelectBase(2, 5);
+            SelectBase(2, 5);
+            int number = GameCount();
+            if (number < 1)
+                DrawingWPF(ChessImages);
         }
 
         private void x2y6_Click(object sender, RoutedEventArgs e)
         {
-            Game.SelectBase(2, 6);
+            SelectBase(2, 6);
+            int number = GameCount();
+            if (number < 1)
+                DrawingWPF(ChessImages);
         }
 
         private void x2y7_Click(object sender, RoutedEventArgs e)
         {
-            Game.SelectBase(2, 7);
+            SelectBase(2, 7);
+            int number = GameCount();
+            if (number < 1)
+                DrawingWPF(ChessImages);
         }
 
         private void x2y8_Click(object sender, RoutedEventArgs e)
         {
-            Game.SelectBase(2, 8);
+            SelectBase(2, 8);
+            int number = GameCount();
+            if (number < 1)
+                DrawingWPF(ChessImages);
         }
 
         private void x3y1_Click(object sender, RoutedEventArgs e)
         {
-            Game.SelectBase(3, 1);
+            SelectBase(3, 1);
+            int number = GameCount();
+            if (number < 1)
+                DrawingWPF(ChessImages);
         }
 
         private void x3y2_Click(object sender, RoutedEventArgs e)
         {
-            Game.SelectBase(3, 2);
+            SelectBase(3, 2);
+            int number = GameCount();
+            if (number < 1)
+                DrawingWPF(ChessImages);
         }
 
         private void x3y3_Click(object sender, RoutedEventArgs e)
         {
-            Game.SelectBase(3, 3);
+            SelectBase(3, 3);
+            int number = GameCount();
+            if (number < 1)
+                DrawingWPF(ChessImages);
         }
 
         private void x3y4_Click(object sender, RoutedEventArgs e)
         {
-            Game.SelectBase(3, 4);
+            SelectBase(3, 4);
+            int number = GameCount();
+            if (number < 1)
+                DrawingWPF(ChessImages);
         }
 
         private void x3y5_Click(object sender, RoutedEventArgs e)
         {
-            Game.SelectBase(3, 5);
+            SelectBase(3, 5);
+            int number = GameCount();
+            if (number < 1)
+                DrawingWPF(ChessImages);
         }
 
         private void x3y6_Click(object sender, RoutedEventArgs e)
         {
-            Game.SelectBase(3, 6);
+            SelectBase(3, 6);
+            int number = GameCount();
+            if (number < 1)
+                DrawingWPF(ChessImages);
         }
 
         private void x3y7_Click(object sender, RoutedEventArgs e)
         {
-            Game.SelectBase(3, 7);
+            SelectBase(3, 7);
+            int number = GameCount();
+            if (number < 1)
+                DrawingWPF(ChessImages);
         }
 
         private void x3y8_Click(object sender, RoutedEventArgs e)
         {
-            Game.SelectBase(3, 8);
+            SelectBase(3, 8);
+            int number = GameCount();
+            if (number < 1)
+                DrawingWPF(ChessImages);
         }
-
-        private void x4y1_Click(object sender, RoutedEventArgs e)
+        */
+        private void anyGrid_Click(object sender, RoutedEventArgs e)
         {
-            Game.SelectBase(4, 1);
+            StartTheGameWithFigures(sender);
         }
 
+        public void StartTheGameWithFigures(object sender)
+        {
+            var clickCoordinates = TakingOutClickCoordinates(sender);
+
+            SelectBase(clickCoordinates.Item1, clickCoordinates.Item2);
+
+            DrawUI();
+        }
+
+        public void DrawUI()
+        {
+            bool gameNumber = GameCount();
+            if (gameNumber)
+                DrawingWPF(ChessImages);
+        }
+
+        public (int,int) TakingOutClickCoordinates(object sender)
+        {
+            Button button = (Button)sender;
+            string name = button.Name;
+            int x = name[1] - 48;
+            int y = name[3] - 48;
+            return (x, y);
+        }
+
+        /*
         private void x4y2_Click(object sender, RoutedEventArgs e)
         {
-            Game.SelectBase(4, 2);
+            SelectBase(4, 2);
+
+            int number = GameCount();
+            if (number < 1)
+                DrawingWPF(ChessImages);
         }
 
         private void x4y3_Click(object sender, RoutedEventArgs e)
         {
-            Game.SelectBase(4, 3);
+            SelectBase(4, 3);
+            int number = GameCount();
+            if (number < 1)
+                DrawingWPF(ChessImages);
         }
 
         private void x4y4_Click(object sender, RoutedEventArgs e)
         {
-            Game.SelectBase(4, 4);
+            SelectBase(4, 4);
+            int number = GameCount();
+            if (number < 1)
+                DrawingWPF(ChessImages);
         }
 
         private void x4y5_Click(object sender, RoutedEventArgs e)
         {
-            Game.SelectBase(4, 5);
+            SelectBase(4, 5);
+            int number = GameCount();
+            if (number < 1)
+                DrawingWPF(ChessImages);
         }
 
         private void x4y6_Click(object sender, RoutedEventArgs e)
         {
-            Game.SelectBase(4, 6);
+            SelectBase(4, 6);
+            int number = GameCount();
+            if (number < 1)
+                DrawingWPF(ChessImages);
         }
 
         private void x4y7_Click(object sender, RoutedEventArgs e)
         {
-            Game.SelectBase(4, 7);
+            SelectBase(4, 7);
+            int number = GameCount();
+            if (number < 1)
+                DrawingWPF(ChessImages);
         }
 
         private void x4y8_Click(object sender, RoutedEventArgs e)
         {
-            Game.SelectBase(4, 8);
+            SelectBase(4, 8);
+            int number = GameCount();
+            if (number < 1)
+                DrawingWPF(ChessImages);
         }
 
         private void x5y1_Click(object sender, RoutedEventArgs e)
         {
-            Game.SelectBase(5, 1);
+            SelectBase(5, 1);
+            int number = GameCount();
+            if (number < 1)
+                DrawingWPF(ChessImages);
         }
 
         private void x5y2_Click(object sender, RoutedEventArgs e)
         {
-            Game.SelectBase(5, 2);
+            SelectBase(5, 2);
+            int number = GameCount();
+            if (number < 1)
+                DrawingWPF(ChessImages);
         }
 
         private void x5y3_Click(object sender, RoutedEventArgs e)
         {
-            Game.SelectBase(5, 3);
+            SelectBase(5, 3);
+            int number = GameCount();
+            if (number < 1)
+                DrawingWPF(ChessImages);
         }
 
         private void x5y4_Click(object sender, RoutedEventArgs e)
         {
-            Game.SelectBase(5, 4);
+            SelectBase(5, 4);
+            int number = GameCount();
+            if (number < 1)
+                DrawingWPF(ChessImages);
         }
 
         private void x5y5_Click(object sender, RoutedEventArgs e)
         {
-            Game.SelectBase(5, 5);
+            SelectBase(5, 5);
+            int number = GameCount();
+            if (number < 1)
+                DrawingWPF(ChessImages);
         }
 
         private void x5y6_Click(object sender, RoutedEventArgs e)
         {
-            Game.SelectBase(5, 6);
+            SelectBase(5, 6);
+            int number = GameCount();
+            if (number < 1)
+                DrawingWPF(ChessImages);
         }
 
         private void x5y7_Click(object sender, RoutedEventArgs e)
         {
-            Game.SelectBase(5, 7);
+            SelectBase(5, 7);
+            int number = GameCount();
+            if (number < 1)
+                DrawingWPF(ChessImages);
         }
 
         private void x5y8_Click(object sender, RoutedEventArgs e)
         {
-            Game.SelectBase(5, 8);
+            SelectBase(5, 8);
+            int number = GameCount();
+            if (number < 1)
+                DrawingWPF(ChessImages);
         }
 
         private void x6y1_Click(object sender, RoutedEventArgs e)
         {
-            Game.SelectBase(6, 1);
+            SelectBase(6, 1);
+            int number = GameCount();
+            if (number < 1)
+                DrawingWPF(ChessImages);
         }
 
         private void x6y2_Click(object sender, RoutedEventArgs e)
         {
-            Game.SelectBase(6, 2);
+            SelectBase(6, 2);
+            int number = GameCount();
+            if (number < 1)
+                DrawingWPF(ChessImages);
         }
 
         private void x6y3_Click(object sender, RoutedEventArgs e)
         {
-            Game.SelectBase(6, 3);
+            SelectBase(6, 3);
+            int number = GameCount();
+            if (number < 1)
+                DrawingWPF(ChessImages);
         }
 
         private void x6y4_Click(object sender, RoutedEventArgs e)
         {
-            Game.SelectBase(6, 4);
+            SelectBase(6, 4);
+            int number = GameCount();
+            if (number < 1)
+                DrawingWPF(ChessImages);
         }
 
         private void x6y5_Click(object sender, RoutedEventArgs e)
         {
-            Game.SelectBase(6, 5);
+            SelectBase(6, 5);
+            int number = GameCount();
+            if (number < 1)
+                DrawingWPF(ChessImages);
         }
 
         private void x6y6_Click(object sender, RoutedEventArgs e)
         {
-            Game.SelectBase(6, 6);
+            SelectBase(6, 6);
+            int number = GameCount();
+            if (number < 1)
+                DrawingWPF(ChessImages);
         }
 
         private void x6y7_Click(object sender, RoutedEventArgs e)
         {
-            Game.SelectBase(6, 7);
+            SelectBase(6, 7);
+            int number = GameCount();
+            if (number < 1)
+                DrawingWPF(ChessImages);
         }
 
         private void x6y8_Click(object sender, RoutedEventArgs e)
         {
-            Game.SelectBase(6, 8);
+            SelectBase(6, 8);
+            int number = GameCount();
+            if (number < 1)
+                DrawingWPF(ChessImages);
         }
 
         private void x7y1_Click(object sender, RoutedEventArgs e)
         {
-            Game.SelectBase(7, 1);
+            SelectBase(7, 1);
+            int number = GameCount();
+            if (number < 1)
+                DrawingWPF(ChessImages);
         }
 
         private void x7y2_Click(object sender, RoutedEventArgs e)
         {
-            Game.SelectBase(7, 2);
+            SelectBase(7, 2);
+            int number = GameCount();
+            if (number < 1)
+                DrawingWPF(ChessImages);
         }
 
         private void x7y3_Click(object sender, RoutedEventArgs e)
         {
-            Game.SelectBase(7, 3);
+            SelectBase(7, 3);
+            int number = GameCount();
+            if (number < 1)
+                DrawingWPF(ChessImages);
         }
 
         private void x7y4_Click(object sender, RoutedEventArgs e)
         {
-            Game.SelectBase(7, 4);
+            SelectBase(7, 4);
+            int number = GameCount();
+            if (number < 1)
+                DrawingWPF(ChessImages);
         }
 
         private void x7y5_Click(object sender, RoutedEventArgs e)
         {
-            Game.SelectBase(7, 5);
+            SelectBase(7, 5);
+            int number = GameCount();
+            if (number < 1)
+                DrawingWPF(ChessImages);
         }
 
         private void x7y6_Click(object sender, RoutedEventArgs e)
         {
-            Game.SelectBase(7, 6);
+            SelectBase(7, 6);
+            int number = GameCount();
+            if (number < 1)
+                DrawingWPF(ChessImages);
         }
 
         private void x7y7_Click(object sender, RoutedEventArgs e)
         {
-            Game.SelectBase(7, 7);
+            SelectBase(7, 7);
+            int number = GameCount();
+            if (number < 1)
+                DrawingWPF(ChessImages);
         }
 
         private void x7y8_Click(object sender, RoutedEventArgs e)
         {
-            Game.SelectBase(7, 8);
+            SelectBase(7, 8);
+            int number = GameCount();
+            if (number < 1)
+                DrawingWPF(ChessImages);
         }
 
         private void x8y1_Click(object sender, RoutedEventArgs e)
         {
-            Game.SelectBase(8, 1);
+            SelectBase(8, 1);
+            int number = GameCount();
+            if (number < 1)
+                DrawingWPF(ChessImages);
         }
 
         private void x8y2_Click(object sender, RoutedEventArgs e)
         {
-            Game.SelectBase(8, 2);
+            SelectBase(8, 2);
+            int number = GameCount();
+            if (number < 1)
+                DrawingWPF(ChessImages);
         }
 
         private void x8y3_Click(object sender, RoutedEventArgs e)
         {
-            Game.SelectBase(8, 3);
+            SelectBase(8, 3);
+            int number = GameCount();
+            if (number < 1)
+                DrawingWPF(ChessImages);
         }
 
         private void x8y4_Click(object sender, RoutedEventArgs e)
         {
-            Game.SelectBase(8, 4);
+            SelectBase(8, 4);
+            int number = GameCount();
+            if (number < 1)
+                DrawingWPF(ChessImages);
         }
 
         private void x8y5_Click(object sender, RoutedEventArgs e)
         {
-            Game.SelectBase(8, 5);
+            SelectBase(8, 5);
+            int number = GameCount();
+            if (number < 1)
+                DrawingWPF(ChessImages);
         }
 
         private void x8y6_Click(object sender, RoutedEventArgs e)
         {
-            Game.SelectBase(8, 6);
+            SelectBase(8, 6);
+            int number = GameCount();
+            if (number < 1)
+                DrawingWPF(ChessImages);
         }
 
         private void x8y7_Click(object sender, RoutedEventArgs e)
         {
-            Game.SelectBase(8, 7);
+            SelectBase(8, 7);
+            int number = GameCount();
+            if (number < 1)
+                DrawingWPF(ChessImages);
         }
 
         private void x8y8_Click(object sender, RoutedEventArgs e)
         {
-            Game.SelectBase(8, 8);
+            SelectBase(8, 8);
+            int number = GameCount();
+            if (number < 1)
+                DrawingWPF(ChessImages);
         }
+        */
         #endregion
 
         #region Black and White
@@ -665,241 +804,101 @@ namespace NikiChessGame_V4
 
         #endregion
 
+        #region from UI Class
 
-    }
-    public class Game
-    {
-        public static int PClickX = 0;
-        public static int PClickY = 0;
 
-        public static int black = 1;
-        public static int white = 2;
+        //public static string[] ImageName = new string[12];
 
-        public static bool myTurn = true;
-        public static bool clickable = false;
-
-        /// <summary>
-        /// Peace variables
-        /// </summary>
-        public static class Peace
+        public bool GameCount()
         {
-            public static class White
-            {
-                public static int[] Pawn = { 1, 2, 3, 4, 5, 6, 7, 8 };
-                public static int[] Rook = { 9, 10 };
-                public static int[] Knite = { 11, 12 };
-                public static int[] Bishop = { 13, 14 };
-                public static int Queen = 15;
-                public static int King = 16;
-            }
-
-            public static class Black
-            {
-                public static int[] Pawn = { 17, 18, 19, 20, 21, 22, 23, 24 };
-                public static int[] Rook = { 25, 26 };
-                public static int[] Knite = { 27, 28 };
-                public static int[] Bishop = { 29, 30 };
-                public static int Queen = 31;
-                public static int King = 32;
-            }
+            return gameManager.GameManagerCount();
         }
 
-        //Base
-        public static class Base
-        {
-            public static int[] ID = new int[65];
-            public static int[] X = new int[65];
-            public static int[] Y = new int[65];
+        public KeyValuePair<Tuple<string, string>, string>[] ImageName = new KeyValuePair<Tuple<string, string>, string>[12];
+        List<Tuple<System.Drawing.Point, string, string>> figurePoints;
 
+        public void SelectBase(int x, int y)
+        {
+            gameManager.SelectBase(x, y);
         }
 
-        public static int GetBaseID(int x, int y)
+        public void SetFigureImages()
         {
-            return ((x - 1) * 8) + y;
-            //return ((x) * 8) + y;
+            ImageName[0] = new KeyValuePair<Tuple<string, string>, string>(new Tuple<string, string>("Black", "K"), "BKing.png");
+            ImageName[1] = new KeyValuePair<Tuple<string, string>, string>(new Tuple<string, string>("Black", "Q"), "BQueen.png");
+            ImageName[2] = new KeyValuePair<Tuple<string, string>, string>(new Tuple<string, string>("Black", "B"), "BBishop.png");
+            ImageName[3] = new KeyValuePair<Tuple<string, string>, string>(new Tuple<string, string>("Black", "R"), "BRook.png");
+            ImageName[4] = new KeyValuePair<Tuple<string, string>, string>(new Tuple<string, string>("Black", "Kn"), "BKnighte.png");
+            ImageName[5] = new KeyValuePair<Tuple<string, string>, string>(new Tuple<string, string>("Black", "P"), "BPawn.png");
+            ImageName[6] = new KeyValuePair<Tuple<string, string>, string>(new Tuple<string, string>("White", "K"), "WKing.png");
+            ImageName[7] = new KeyValuePair<Tuple<string, string>, string>(new Tuple<string, string>("White", "Q"), "WQueen.png");
+            ImageName[8] = new KeyValuePair<Tuple<string, string>, string>(new Tuple<string, string>("White", "B"), "WBishop.png");
+            ImageName[9] = new KeyValuePair<Tuple<string, string>, string>(new Tuple<string, string>("White", "R"), "WRook.png");
+            ImageName[10] = new KeyValuePair<Tuple<string, string>, string>(new Tuple<string, string>("White", "Kn"), "WKnighte.png");
+            ImageName[11] = new KeyValuePair<Tuple<string, string>, string>(new Tuple<string, string>("White", "P"), "WPawn.png");
         }
 
-        //Move
-        public static bool IsMoveable(int px, int py, int nx, int ny)
+        public void StartChessGame(ComboBox StartTheGame, Image[] ChessImages)
         {
-            int ptype = GetType(px, py);
-            int ntype = GetType(nx, ny);
+            SetFigureImages();
+            //if (StartTheGame.Text == "1st game")
+            gameManager.DrawGame(StartTheGame.Text);
+            DrawingWPF(ChessImages);
+        }
 
-            int pmodel = GetModel(px, py);
-            int nmodel = GetModel(nx, ny);
-
-            double Distance = GetDistance(px, py, nx, ny);
-            int way = GetWay(px, py, nx, ny);
-
-            if (GetTypeName(px, py) == "Pawn")
+        public void DrawingWPF(Image[] ChessImages)
+        {
+            ResetAllPicturePostitions();
+            figurePoints = gameManager.FigurePositions();
+            foreach (var pos in figurePoints)
             {
-                if (pmodel == white)
+                //int chessImageNumber = 8 * _figure.xPos - (8 - _figure.yPos);
+                // Game.SetImage(ChessImages[chessImageNumber], _figure);
+
+                int chessImageNumber = 8 * pos.Item1.X - (8 - pos.Item1.Y);
+
+                foreach (var image in ImageName)
                 {
-                    if (Distance == 1 && way == Way.Up && ntype == 0)
-                        return true;
-                    if (Distance == 2 && way == Way.Up && ntype == 0 && py == 2)
-                        return true;
-                    if (Distance == 1)
+                    if (image.Key.Item1 == pos.Item2 && image.Key.Item2 == pos.Item3)
                     {
-                        if (way == Way.UpLeft || way == Way.UpRight)
-                            if (ntype > 0 && pmodel != nmodel) return true;
-                    }
-                }
-                if (pmodel == black)
-                {
-                    if (Distance == 1 && way == Way.Down && ntype == 0)
-                        return true;
-                    if (Distance == 2 && way == Way.Down && ntype == 0 && py == 7)
-                        return true;
-                    if (Distance == 1)
-                    {
-                        if (way == Way.DownLeft || way == Way.DownRight)
-                            if (ntype > 0 && pmodel != nmodel) return true;
+                        SetImage(ChessImages[chessImageNumber], image.Value);
                     }
                 }
             }
-            return true;
         }
 
-        public static class Way
+        public void ResetAllPicturePostitions()
         {
-            public static int Up = 1;
-            public static int Down = 2;
-            public static int Right = 3;
-            public static int Left = 4;
-            public static int UpRight = 5;
-            public static int UpLeft = 6;
-            public static int DownRight = 7;
-            public static int DownLeft = 8;
-        }
-
-        public static int GetWay(int px, int py, int nx, int ny)
-        {
-            int ix = (int)(double)Math.Sqrt(Math.Pow(px - nx, 2));
-            int iy = (int)(double)Math.Sqrt(Math.Pow(py - ny, 2));
-
-
-            if (px == nx)
+            for (int i = 1; i < 65; i++)
             {
-                if (ny > py) return Way.Up;
-                if (ny < py) return Way.Down;
+                SetImage(ChessImages[i], string.Empty);
             }
-            else if (py == ny)
-            {
-                if (nx > px) return Way.Right;
-                if (nx < px) return Way.Left;
-            }
-            else if (ix == iy)
-            {
-                if (ny > py && nx > px) return Way.UpRight;
-                if (ny > py && nx < px) return Way.UpLeft;
-                if (ny < py && nx > px) return Way.DownRight;
-                if (ny < py && nx < px) return Way.DownLeft;
-            }
-
-            return 0;
         }
 
-        public static double GetDistance(int px, int py, int nx, int ny)
+        public static void SetImage(Image img, string figureImageName)
         {
-            return (double)(Math.Sqrt(Math.Pow(px - nx, 2) + Math.Pow(py - ny, 2)));
+            //img.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal, (System.Threading.ThreadStart)delegate ()
+            // {
+            //     if (type < 1) img.Visibility = Visibility.Hidden;
+            /* else*/
+            img.Source = new BitmapImage(new Uri("\\Images\\" + figureImageName, UriKind.Relative));
+            //});
         }
 
-        public static string GetTypeName(int x, int y)
-        {
-            int type = Base.ID[GetBaseID(x, y)];
-
-            if (Peace.White.Pawn.Contains(type) && Peace.Black.Pawn.Contains(type)) return "Pawn";
-            if (Peace.White.Knite.Contains(type) && Peace.Black.Knite.Contains(type)) return "Knite";
-            if (Peace.White.Bishop.Contains(type) && Peace.Black.Bishop.Contains(type)) return "Bishop";
-            if (Peace.White.Rook.Contains(type) && Peace.Black.Rook.Contains(type)) return "Rook";
-
-            if (type == Peace.White.Queen || type == Peace.Black.Queen) return "Queen";
-            if (type == Peace.White.King || type == Peace.Black.King) return "King";
-
-            return "";
-        }
-
-        //public static bool SetBase(int px, int py, int x, int y, List<NikiStandartChess.Figures.Figure> figures)
+        //public static void StartGame()
         //{
-        //    int type = GetType(px, py);
-        //    int nType = GetType(x, y);
-        //    if (nType > 0)
-        //    {
+        //    int x, y;
 
-        //    }
+        //    x = 1;
+        //    y = 2;
 
-        //    Base.ID[GetBaseID(x, y)] = type;
-        //    SetImage(MainWindow.ChessImages[GetBaseID(x, y)], type);
-        //    SetImage(MainWindow.ChessImages[GetBaseID(px, py)], 0);
-        //    //DrawingWPF()
-        //    return true;
+        //    int type = Game.Peace.White.Pawn[0];
+
+        //    Game.Base.ID[Game.GetBaseID(x, y)] = type;
+        //    Game.SetImage(MainWindow.ChessImages[Game.GetBaseID(x, y)], type);
         //}
 
-        //public static void SetImage(Image img, int type)
-        //{
-        //    //img.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal, (System.Threading.ThreadStart)delegate ()
-        //    // {
-        //    //     if (type < 1) img.Visibility = Visibility.Hidden;
-        //    /* else*/
-        //    img.Source = new BitmapImage(new Uri("\\Images\\" + MainWindow.ImageName[type], UriKind.Relative));
-        //    //});
-        //}
+        #endregion
 
-        //public static void SetImage(Image img, NikiStandartChess.Figures.Figure figure)
-        //{
-        //    //img.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal, (System.Threading.ThreadStart)delegate ()
-        //    // {
-        //    //     if (type < 1) img.Visibility = Visibility.Hidden;
-        //    /* else*/
-        //    img.Source = new BitmapImage(new Uri("\\Images\\" + figure.imageName, UriKind.Relative));
-        //    //});
-        //}
-
-        public static int GetModel(int x, int y)
-        {
-            int model = Base.ID[GetBaseID(x, y)];
-            if (model > 0 && model < 17) return white;
-            if (model > 16) return black;
-            return -1;
-        }
-
-        public static int GetType(int x, int y)
-        {
-            if (x < 1 || x > 8) return 0;
-            if (x < 1 || y > 8) return 0;
-
-            return Base.ID[GetBaseID(x, y)];
-        }
-
-        //----Select On ChessPeace
-        public static void SelectBase(int x, int y)
-        {
-            MainWindow.clickX = x;
-            MainWindow.clickY = y;
-            System.Threading.Thread T = new System.Threading.Thread(Select);
-            T.Start();
-        }
-
-        public static void Select()
-        {
-            if (myTurn)
-            {
-                if (clickable)
-                {
-                    //if (IsMoveable(PClickX, PClickY, MainWindow.clickX, MainWindow.clickY))
-                    //{
-                    //SetBase(PClickX, PClickY, MainWindow.clickX, MainWindow.clickY,figures);
-                    clickable = false;
-                    //}
-                }
-                else
-                {
-                    PClickX = MainWindow.clickX;
-                    PClickY = MainWindow.clickY;
-                    clickable = true;
-                }
-            }
-        }
     }
 }

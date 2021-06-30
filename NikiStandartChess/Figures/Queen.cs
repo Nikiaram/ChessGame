@@ -6,11 +6,29 @@ using System.Threading.Tasks;
 
 namespace NikiStandartChess.Figures
 {
-    public class Queen : Figure
+    public class Queen : IFigure
     {
-        
-        //public string imageName;
 
+        public FigureType figureType { get; set; }
+        public string Name { get; set; }
+        public int xPos { get; set; }
+        public int yPos { get; set; }
+
+        public Queen(FigureType _figureType, int _xPos, int _yPos)
+        {
+            Name = "Q";
+        }
+        public Queen(FigureType _figureType)
+        {
+            Name = "Q";
+            figureType = _figureType;
+        }
+        public Queen()
+        {
+
+        }
+        //public string imageName;
+        /*
         public Queen(FigureType _figureType, int _xPos, int _yPos) : base(_figureType, _xPos, _yPos)
         {
             name = "Q";           
@@ -27,5 +45,6 @@ namespace NikiStandartChess.Figures
         {
             return name;
         }
+        */
     }
 }

@@ -10,7 +10,7 @@ namespace NikiStandartChess.Figures
     {
         public FigureType figureType { get; set; }
         
-        public string name = string.Empty;//sa "  " hanem 
+        public string name = string.Empty; 
         public int xPos;
         public int yPos;
         public Figure(FigureType _figureType)

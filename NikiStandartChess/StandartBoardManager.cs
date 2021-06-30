@@ -26,13 +26,13 @@ namespace NikiStandartChess
             //DrawingWPF(figures);
         }
 
-        public static Figure CreateFigure(Type type, FigureType figureType)
+        public static IFigure CreateFigure(Type type, FigureType figureType)
         {
-            Figure figure = (Figure)Activator.CreateInstance(type, figureType);
+            IFigure figure = (IFigure)Activator.CreateInstance(type, figureType);
             return figure;
         }
 
-        public static void DrawBoard(Board _board)
+        public void DrawBoard(Board _board)
         {
             InitializeBoard(_board);
             for (int i = 1; i < 9; i++)
@@ -59,6 +59,33 @@ namespace NikiStandartChess
             }
         }
 
+        public void DrawBoard(List<IFigure> figures)
+        {
+            InitializeBoard(board);
+            for (int i = 1; i < 9; i++)
+            {
+                //if (i % 2 == 0)
+                //{
+                for (int j = 1; j < 9; j++)
+                {
+                    board.i = i;
+                    board.j = j;
+                    FigurePositions(board);
+                }
+                //}
+                //else
+                //{
+                //    for (int j = 0; j < 9; j++)
+                //    {
+                //        _board.i = i;
+                //        _board.j = j;
+                //        InitializeBoard(_board, figures, ConsoleColor.Gray, ConsoleColor.White);
+                //    }
+                //}
+                //WriteLine();
+            }
+        }
+
         public static void FigureInitialPositions(Board _board)
         {
             int _i = _board.i;
@@ -68,7 +95,7 @@ namespace NikiStandartChess
                 if (_i == 1 && _j == 4 && _figure is King && _figure.figureType == FigureType.Black && _board.gameBoard[_i, _j] == string.Empty)
                 {
                     //ForegroundColor = ConsoleColor.Black;
-                    _board.gameBoard[_i, _j] = "B" + _figure.Name();//Black King
+                    _board.gameBoard[_i, _j] = "B" + _figure.Name;//Black King ste Name() er
                     _figure.xPos = _j;
                     _figure.yPos = _i;
                     //int chessImageNumber = 8 * _j - (8 - _i);
@@ -98,7 +125,7 @@ namespace NikiStandartChess
                 else if (_i == 8 && _j == 1 && _figure is Rook && _figure.figureType == FigureType.White && _board.gameBoard[_i, _j] == string.Empty)
                 {
                     // ForegroundColor = ConsoleColor.Red;
-                    _board.gameBoard[_i, _j] = "R" + _figure.Name();// Right Rook
+                    _board.gameBoard[_i, _j] = "R" + _figure.Name;// Right Rook ste Name() er
                     _figure.xPos = _j;
                     _figure.yPos = _i;
                     //int chessImageNumber = 8 * _j - (8 - _i);
@@ -108,7 +135,7 @@ namespace NikiStandartChess
                 else if (_i == 8 && _j == 3 && _figure is Queen && _figure.figureType == FigureType.White && _board.gameBoard[_i, _j] == string.Empty)
                 {
                     //ForegroundColor = ConsoleColor.Red;
-                    _board.gameBoard[_i, _j] = "W" + _figure.Name(); //White Queen
+                    _board.gameBoard[_i, _j] = "W" + _figure.Name; //White Queen ste Name() er
                     _figure.xPos = _j;
                     _figure.yPos = _i;
                     //int chessImageNumber = 8 * _j - (8 - _i);
@@ -118,17 +145,17 @@ namespace NikiStandartChess
                 else if (_i == 8 && _j == 4 && _figure is King && _figure.figureType == FigureType.White && _board.gameBoard[_i, _j] == string.Empty)
                 {
                     //ForegroundColor = ConsoleColor.Red;
-                    _board.gameBoard[_i, _j] = "W" + _figure.Name(); // White King
+                    _board.gameBoard[_i, _j] = "W" + _figure.Name; // White King ste Name() er
                     _figure.xPos = _j;
                     _figure.yPos = _i;
                     //int chessImageNumber = 8 * _j - (8 - _i);
                     //Game.SetImage(ChessImages[chessImageNumber], _figure);
                     break;
                 }
-                else if (_figure.xPos==0 && _figure.yPos==0 && _i == 8 && _j == 8 && _figure is Rook && _figure.figureType == FigureType.White && _board.gameBoard[_i, _j] == string.Empty /*_figure.figureNumber == FigureNumber.Left*/)
+                else if (_figure.xPos == 0 && _figure.yPos == 0 && _i == 8 && _j == 8 && _figure is Rook && _figure.figureType == FigureType.White && _board.gameBoard[_i, _j] == string.Empty /*_figure.figureNumber == FigureNumber.Left*/)
                 {
                     //ForegroundColor = ConsoleColor.Red;
-                    _board.gameBoard[_i, _j] = "L" + _figure.Name(); // Left Rook
+                    _board.gameBoard[_i, _j] = "L" + _figure.Name; // Left Rook ste Name() er
                     _figure.xPos = _j;
                     _figure.yPos = _i;
                     //int chessImageNumber = 8 * _j - (8 - _i);
@@ -142,48 +169,75 @@ namespace NikiStandartChess
             }
         }
 
-        public static void FigurePositions(Board _board)
+
+        public void FigurePositions(Board _board)
         {
             if (count < 64)
             {
                 FigureInitialPositions(_board);
                 count++;
             }
-            //if (_i == figures[0].yPos && _j == figures[0].xPos && count > 63)
-            //{
-            //    //ForegroundColor = ConsoleColor.Black;
-            //    //_board.board[_i, _j] = "B" + figures[0].Name();//Black King
-            //    //figures[0].xPos = _j;
-            //    //figures[0].yPos = _i;
-            //}
-            //else if (_i == figures[1].yPos && _j == figures[1].xPos && count > 63)
-            //{
-            //    //ForegroundColor = ConsoleColor.Red;
-            //    //_board.board[_i, _j] = "W" + figures[1].Name();//White King
-            //    //figures[1].xPos = _j;
-            //    //figures[1].yPos = _i;
-            //}
-            //else if (_i == figures[2].yPos && _j == figures[2].xPos && count > 63)
-            //{
-            //    ForegroundColor = ConsoleColor.Red;
-            //    //_board.board[_i, _j] = "W" + figures[2].Name();//White Queen
-            //    //figures[2].xPos = _j;
-            //    //figures[2].yPos = _i;
-            //}
-            //else if (_i == figures[3].yPos && _j == figures[3].xPos && count > 63)
-            //{
-            //    ForegroundColor = ConsoleColor.Red;
-            //    //_board.board[_i, _j] = "L" + figures[3].Name();//Left Rook
-            //    //figures[3].xPos = _j;
-            //    //figures[3].yPos = _i;
-            //}
-            //else if (_i == figures[4].yPos && _j == figures[4].xPos && count > 63)
-            //{
-            //    ForegroundColor = ConsoleColor.Red;
-            //    //_board.board[_i, _j] = "R" + figures[4].Name();//Right Rook
-            //    //figures[4].xPos = _j;
-            //    //figures[4].yPos = _i;
-            //}
+            else
+            {
+                FigurePositionsDuringTheGame(_board);
+            }
+        }
+
+        public void FigurePositionsDuringTheGame(Board _board)
+        {
+            int _i = _board.i;
+            int _j = _board.j;
+
+            foreach (var figure in _board.figuresList)
+            {
+                if (_i == figure.yPos && _j == figure.xPos && count > 63 && figure.figureType == FigureType.Black)
+                {
+                    _board.gameBoard[_i, _j] = "B" + figure.Name;//Black ste Name() er
+                    //figure.xPos = _j;
+                    //figure.yPos = _i;
+                }
+                else if (_i == figure.yPos && _j == figure.xPos && count > 63 && figure.figureType == FigureType.White)
+                {
+                    _board.gameBoard[_i, _j] = "W" + figure.Name;//White ste Name() er
+                    //figure.xPos = _j;
+                    //figure.yPos = _i;
+                }
+            }
+            /*
+            if (_i == _board.figuresList[0].yPos && _j == _board.figuresList[0].xPos && count > 63)
+            {
+                //_board.board[_i, _j] = "B" + figures[0].Name();//Black King
+                //figures[0].xPos = _j;
+                //figures[0].yPos = _i;
+            }
+            else if (_i == _board.figuresList[1].yPos && _j == _board.figuresList[1].xPos && count > 63)
+            {
+                //ForegroundColor = ConsoleColor.Red;
+                //_board.board[_i, _j] = "W" + figures[1].Name();//White King
+                //figures[1].xPos = _j;
+                //figures[1].yPos = _i;
+            }
+            else if (_i == _board.figuresList[2].yPos && _j == _board.figuresList[2].xPos && count > 63)
+            {
+                ForegroundColor = ConsoleColor.Red;
+                //_board.board[_i, _j] = "W" + figures[2].Name();//White Queen
+                //figures[2].xPos = _j;
+                //figures[2].yPos = _i;
+            }
+            else if (_i == _board.figuresList[3].yPos && _j == _board.figuresList[3].xPos && count > 63)
+            {
+                ForegroundColor = ConsoleColor.Red;
+                //_board.board[_i, _j] = "L" + figures[3].Name();//Left Rook
+                //figures[3].xPos = _j;
+                //figures[3].yPos = _i;
+            }
+            else if (_i == _board.figuresList[4].yPos && _j == _board.figuresList[4].xPos && count > 63)
+            {
+                //_board.board[_i, _j] = "R" + figures[4].Name();//Right Rook
+                //figures[4].xPos = _j;
+                //figures[4].yPos = _i;
+            }
+            */
         }
 
         public static void InitializeBoard(Board _board)
@@ -199,9 +253,9 @@ namespace NikiStandartChess
             }
         }
 
-        public List<Figure> ReturnFigureList()
+        public Board ReturnFigureList()
         {
-            return board.figuresList ;
+            return board;
         }
     }
 }

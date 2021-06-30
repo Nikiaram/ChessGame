@@ -20,7 +20,7 @@ namespace NikiStandartChess
 
         }
 
-        public List<Figure> figuresList = new List<Figure>();
+        public List<IFigure> figuresList = new List<IFigure>();
 
 
     }

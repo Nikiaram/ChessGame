@@ -1,6 +1,7 @@
 ﻿using NikiStandartChess.Figures;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,10 +10,47 @@ namespace NikiStandartChess
 {
     public class StandartGameManager
     {
+        public bool CallingFigureTypeMethod(Point nextPoint, Board board, int figureNumber)
+        {
+            bool freeGridCheck = CheckingForOtherFigures(board, nextPoint);
+
+            bool availableStep = false;
+
+            if (freeGridCheck)
+            {
+                switch (board.figuresList[figureNumber])
+                {
+                    case King:
+                        {
+                            availableStep = CheckingKingSteps(board.figuresList[figureNumber], nextPoint);
+                            break;
+                        }
+                    case Rook:
+                        {
+                            availableStep = CheckingRookSteps(board.figuresList[figureNumber], nextPoint);
+                            break;
+                        }
+                    case Queen:
+                        {
+                            availableStep = CheckingQueenSteps(board.figuresList[figureNumber], nextPoint);
+                            break;
+                        }
+
+                    default:
+                        break;
+                }
+            }
+
+            return availableStep;
+        }
+
         //1st region I think
-        /*
+
         #region previouse game 1st section
         //Supporting methods(number 1) standart for any chess game
+
+        //Sa el aktuar chi
+        /*
         public static (int, int) CheckingBlackKingInputs(List<NikiStandartChess.Figures.Figure> figures, int previousBlackKingX, int previousPosY)//CheckingInputs
         {
             try
@@ -131,7 +169,10 @@ namespace NikiStandartChess
                 return (9, 0);
             }
         }
+        */
 
+        // sa aktual chi
+        /*
         public static (int, int) CheckingInputs(string coordinates, List<NikiStandartChess.Figures.Figure> figures)
         {
             try
@@ -166,47 +207,49 @@ namespace NikiStandartChess
                 return (9, 0);
             }
         }//ok
+        */
 
-        public static bool CheckingKingSteps(NikiStandartChess.Figures.Figure figure, int PreviosPosX, int PreviosPosY)
+        public static bool CheckingKingSteps(IFigure figure, Point nextPoint)
         {
-            int y = figure.yPos;
-            int x = figure.xPos;
-            if ((x - PreviosPosX == 1 || x - PreviosPosX == -1 || x - PreviosPosX == 0)
-                && (y - PreviosPosY == 1 || y - PreviosPosY == -1 || y - PreviosPosY == 0)
-                && ((x - PreviosPosX != 0 || y - PreviosPosY != 0)))
+            int y = nextPoint.Y;
+            int x = nextPoint.X;
+            if ((x - figure.xPos == 1 || x - figure.xPos == -1 || x - figure.xPos == 0)
+                && (y - figure.yPos == 1 || y - figure.yPos == -1 || y - figure.yPos == 0)
+                && ((x - figure.xPos != 0 || y - figure.xPos != 0)))
             {
-                return false;
+                return true;
             }
-            return true;
+            return false;
         }//ok
 
-        public static bool CheckingQueenSteps(NikiStandartChess.Figures.Figure figure, int PreviosPosX, int PreviosPosY)
+        public static bool CheckingQueenSteps(IFigure figure, Point nextPoint)
         {
-            int nextPosY = figure.yPos;
-            int nextPosX = figure.xPos;
-            int tempX = PreviosPosX;
-            int tempY = PreviosPosY;
-            if (Math.Abs(PreviosPosX - nextPosX) == Math.Abs(PreviosPosY - nextPosY)
-                || nextPosY - PreviosPosY == 0 || nextPosX - PreviosPosX == 0)
+            int nextPosY = nextPoint.Y;
+            int nextPosX = nextPoint.X;
+            int tempX = figure.xPos;
+            int tempY = figure.yPos;
+            if (Math.Abs(figure.xPos - nextPosX) == Math.Abs(figure.yPos - nextPosY)
+                || nextPosY - figure.yPos == 0 || nextPosX - figure.xPos == 0)
             {
-                return false;
+                return true;
             }
-            return true;
+            return false;
         }//ok
 
-        public static bool CheckingRookSteps(NikiStandartChess.Figures.Figure figure, int PreviosPosX, int PreviosPosY)//ok
+        public static bool CheckingRookSteps(IFigure figure, Point nextPoint)//ok
         {
-            int nextPosY = figure.yPos;
-            int nextPosX = figure.xPos;
-            int tempX = PreviosPosX;
-            int tempY = PreviosPosY;
-            if (nextPosY - PreviosPosY == 0 || nextPosX - PreviosPosX == 0)
+            int nextPosY = nextPoint.Y;
+            int nextPosX = nextPoint.X;
+            int tempX = figure.xPos;
+            int tempY = figure.yPos;
+            if (nextPosY - figure.yPos == 0 || nextPosX - figure.xPos == 0)
             {
-                return false;
+                return true;
             }
-            return true;
+            return false;
         }
-
+        //sa el voncvor te aktuar chi
+        /*
         public static bool CheckingForOtherFigures(Board board, NikiStandartChess.Figures.Figure figure, int PreviosPosX, int PreviosPosY)
         {
             int nextPosY = figure.yPos;
@@ -242,14 +285,16 @@ namespace NikiStandartChess
                     PreviosPosY = i;
                 }
                 //WriteLine(board.board[y, x] + "A");
-                if (board.board[PreviosPosY, PreviosPosX] != "  " || (nextPosY == tempY && nextPosX == tempX))
+                if (board.gameBoard[PreviosPosY, PreviosPosX] != "  " || (nextPosY == tempY && nextPosX == tempX))
                 {
                     return true;
                 }
             } while (nextPosX != PreviosPosX || nextPosY != PreviosPosY);
             return false;
         }//ok
-
+        */
+        //sa aktuar chi
+        /*
         public static (int, int) TakingOutCoordinates(string coordinates)
         {
             if (coordinates.Length == 2)
@@ -319,14 +364,14 @@ namespace NikiStandartChess
                 throw new ArgumentOutOfRangeException("Wrong length");
             }
         }
+        */
 
-        public static bool CheckingForOtherFigures(Board board, NikiStandartChess.Figures.Figure figure)
+        //sa der zargacnela petk linelu
+        public static bool CheckingForOtherFigures(Board board, Point nextPoint)
         {
-            int j = figure.xPos;
-            int i = figure.yPos;
             try
             {
-                if (board.board[i, j] != figure.name && board.board[i, j] != default(string))
+                if (board.gameBoard[nextPoint.Y, nextPoint.X] == string.Empty)
                 {
                     return true;
                 }
@@ -338,7 +383,7 @@ namespace NikiStandartChess
             return false;
         }
         #endregion
-        */
+
 
 
     }
