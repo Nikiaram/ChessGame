@@ -10,18 +10,17 @@ namespace NikiStandartChess
 {
     public class Board
     {
-        Point coordinates = new Point();
-        
         public int i;
+
         public int j;
+
         public string[,] gameBoard;
+
         public Board()
         {
 
         }
 
         public List<IFigure> figuresList = new List<IFigure>();
-
-
     }
 }
